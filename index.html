@@ -4,21 +4,26 @@
 <meta charset="UTF-8">
 <title>CyberShield Group</title>
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f7f9fc;color:#333}
-header{background:#1a1a1a;color:#fff;padding:30px 20px;text-align:center}
-header h1{margin:0;font-size:2em}
-header p{margin-top:10px;font-size:1.1em;color:#ddd}
-main{padding:50px 20px;text-align:center}
-section{margin:60px 0}
-.services{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
-.service-box{background:#fff;padding:25px;border-radius:12px;box-shadow:0 6px 15px rgba(0,0,0,0.08);min-width:220px;max-width:280px;transition:transform .2s,box-shadow .2s}
-.service-box:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.12);cursor:pointer}
-.service-box h3{margin-top:0;color:#1a1a1a}
-footer{background:#eaeaea;text-align:center;padding:20px;font-size:14px;color:#555}
-a{color:#1a73e8;text-decoration:none}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Roboto',sans-serif;background:#f4f7f9;color:#333;line-height:1.6}
+header{background:#0b1d38;color:#fff;padding:60px 20px;text-align:center}
+header h1{font-size:2.5em;font-weight:700}
+header p{font-size:1.2em;color:#cbd6e0;margin-top:10px}
+main{padding:50px 20px;max-width:1200px;margin:0 auto}
+section{margin:60px 0;text-align:center}
+h2{font-size:2em;margin-bottom:20px;color:#0b1d38}
+p{font-size:1em;margin-bottom:15px}
+.services, .extra-ideas{display:flex;flex-wrap:wrap;justify-content:center;gap:20px}
+.service-box, .idea-box{background:#fff;padding:30px;border-radius:12px;box-shadow:0 6px 15px rgba(0,0,0,0.08);min-width:250px;max-width:300px;transition:transform .3s,box-shadow .3s}
+.service-box:hover, .idea-box:hover{transform:translateY(-5px);box-shadow:0 10px 25px rgba(0,0,0,0.15);cursor:pointer}
+.service-box h3, .idea-box h4{color:#0b1d38;margin-bottom:10px}
+button{padding:12px 25px;background:#1d4ed8;color:#fff;border:none;border-radius:8px;font-size:1em;cursor:pointer;transition:background .3s}
+button:hover{background:#2563eb}
+footer{background:#eaeaea;text-align:center;padding:25px;font-size:14px;color:#555;margin-top:50px}
+a{color:#1d4ed8;text-decoration:none}
 a:hover{text-decoration:underline}
-.extra-ideas{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:30px}
-.idea-box{background:#fff;padding:20px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.08);min-width:200px;max-width:250px}
+@media(max-width:768px){.services,.extra-ideas{flex-direction:column;align-items:center}}
 </style>
 </head>
 <body>
@@ -55,6 +60,7 @@ a:hover{text-decoration:underline}
 <section>
 <h2>Επικοινωνία</h2>
 <p>Για οποιαδήποτε ερώτηση ή συνεργασία, στείλτε email στο <a href="mailto:lenosmantis16@gmail.com">lenosmantis16@gmail.com</a></p>
+<button onclick="window.location.href='mailto:lenosmantis16@gmail.com'">Στείλε Email</button>
 </section>
 
 <section>
@@ -80,6 +86,10 @@ a:hover{text-decoration:underline}
 <footer>
 © 2025 — Δημιουργία από το CyberShield Group | Ηθικό Hacking για Καλό Σκοπό
 </footer>
+
+<script>
+window.addEventListener('load',()=>{console.log("CyberShield Group Site Loaded")});
+</script>
 
 </body>
 </html>
