@@ -184,12 +184,7 @@ footer a:hover {
 </header>
 
 <!-- Terminal Box -->
-<div class="terminal">
-  <div class="line">> Initializing Scripting Hub... <span class="cursor"></span></div>
-  <div class="line">> Loading security modules...</div>
-  <div class="line">> Scripts ready: <span style="color:lime">OK</span></div>
-  <div class="line">> Welcome, user.</div>
-</div>
+<div class="terminal" id="terminal"></div>
 
 <main>
   <section>
@@ -217,6 +212,7 @@ footer a:hover {
 
   <section>
     <h2>Επικοινωνία</h2>
+    <p>Για οποιαδήποτε ερώτηση ή συνεργασία, στείλτε email στο <a href="mailto:lenosmantis16@gmail.com">lenosmantis16@gmail.com</a></p>
     <button onclick="window.location.href='mailto:lenosmantis16@gmail.com'">Στείλε Email</button>
   </section>
 
@@ -254,7 +250,46 @@ for (let i=0; i<70; i++) {
   matrix.appendChild(span);
 }
 
-console.log("Scripting Hub Loaded ✅");
+// Terminal typing effect
+const terminalLines = [
+  "Initializing Scripting Hub...",
+  "Loading security modules...",
+  "Scripts ready: OK",
+  "Welcome, user."
+];
+
+const terminal = document.getElementById("terminal");
+
+function typeLine(line, callback) {
+  let i = 0;
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+  const lineDiv = document.createElement("div");
+  lineDiv.className = "line";
+  terminal.appendChild(lineDiv);
+  lineDiv.appendChild(cursor);
+
+  function typeChar() {
+    if (i < line.length) {
+      lineDiv.insertBefore(document.createTextNode(line[i]), cursor);
+      i++;
+      setTimeout(typeChar, 60);
+    } else {
+      callback();
+    }
+  }
+  typeChar();
+}
+
+function typeLines(lines, index = 0) {
+  if (index < lines.length) {
+    typeLine(lines[index], () => {
+      setTimeout(() => typeLines(lines, index + 1), 400);
+    });
+  }
+}
+
+typeLines(terminalLines);
 </script>
 
 </body>
