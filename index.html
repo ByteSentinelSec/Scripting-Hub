@@ -7,50 +7,42 @@
 <meta name="description" content="Cybersecurity Scripts • Ethical Hacking • Automation • Education">
 <meta name="theme-color" content="#00ff6a">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto Mono', monospace;}
-  body{background:#000;color:#e0ffe0;overflow-x:hidden;}
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto Mono', monospace;}
+body{background:#000;color:#e0ffe0;overflow-x:hidden;}
 
-  /* Loading screen */
-  #loading{
-    position:fixed;top:0;left:0;width:100%;height:100%;
-    background:#000;display:flex;flex-direction:column;
-    justify-content:center;align-items:center;z-index:9999;color:#00ff6a;
-  }
-  .progress{width:300px;height:20px;border:1px solid #00ff6a;border-radius:10px;overflow:hidden;margin-top:20px;}
-  .bar{height:100%;width:0;background:#00ff6a;transition:width 0.3s;}
+/* Loading screen */
+#loading{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;color:#00ff6a;}
+.progress{width:300px;height:20px;border:1px solid #00ff6a;border-radius:10px;overflow:hidden;margin-top:20px;}
+.bar{height:100%;width:0;background:#00ff6a;transition:width 0.3s;}
 
-  /* Matrix background */
-  .matrix{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;}
-  .matrix span{position:absolute;top:-20px;color:#00ff6a;font-size:16px;animation:drop linear infinite;opacity:0.6;}
-  @keyframes drop{0%{transform:translateY(-20px);}100%{transform:translateY(100vh);}}
+/* Matrix background */
+.matrix{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;}
+.matrix span{position:absolute;top:-20px;color:#00ff6a;font-size:16px;animation:drop linear infinite;opacity:0.6;}
+@keyframes drop{0%{transform:translateY(-20px);}100%{transform:translateY(100vh);}}
 
-  /* Glass panels */
-  header,section,footer{background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border:1px solid rgba(0,255,106,0.3);border-radius:16px;padding:40px 20px;margin:30px auto;max-width:1000px;text-align:center;box-shadow:0 0 20px rgba(0,255,106,0.2);animation:fadeIn 1.5s ease;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+header,section,footer{background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border:1px solid rgba(0,255,106,0.3);border-radius:16px;padding:40px 20px;margin:30px auto;max-width:1000px;text-align:center;box-shadow:0 0 20px rgba(0,255,106,0.2);animation:fadeIn 1.5s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+h1,h2{color:#00ff6a;text-shadow:0 0 12px #00ff6a;}
+header h1{font-size:3em;}
+header p{margin-top:10px;font-size:1.2em;color:#99ffcc;}
+.grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:20px;}
+.card{flex:1 1 280px;background:rgba(0,0,0,0.7);border:1px solid #00ff6a;padding:25px;border-radius:12px;box-shadow:0 0 20px rgba(0,255,106,0.3);transition:transform .3s, box-shadow .3s;}
+.card:hover{transform:translateY(-6px);box-shadow:0 0 30px rgba(0,255,106,0.7);}
+.btn{display:inline-block;margin:10px;padding:12px 25px;border-radius:8px;font-size:1em;font-weight:bold;cursor:pointer;text-decoration:none;transition:all .3s;}
+.btn.email{background:#00ff6a;color:#000;}
+.btn.email:hover{background:#00cc55;}
+.btn.discord{background:#5865F2;color:#fff;}
+.btn.discord:hover{background:#4752c4;}
+.btn.lang{background:rgba(0,255,106,0.4);color:#000;margin-left:10px;}
+footer{font-size:0.9em;color:#99ffcc;border-top:1px solid rgba(0,255,106,0.3);}
+footer a{color:#00ff6a;text-decoration:none;}
+footer a:hover{text-decoration:underline;}
 
-  h1,h2{color:#00ff6a;text-shadow:0 0 12px #00ff6a;}
-  header h1{font-size:3em;}
-  header p{margin-top:10px;font-size:1.2em;color:#99ffcc;}
-
-  .grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:20px;}
-  .card{flex:1 1 280px;background:rgba(0,0,0,0.7);border:1px solid #00ff6a;padding:25px;border-radius:12px;box-shadow:0 0 20px rgba(0,255,106,0.3);transition:transform .3s, box-shadow .3s;}
-  .card:hover{transform:translateY(-6px);box-shadow:0 0 30px rgba(0,255,106,0.7);}
-
-  .btn{display:inline-block;margin:10px;padding:12px 25px;border-radius:8px;font-size:1em;font-weight:bold;cursor:pointer;text-decoration:none;transition:all .3s;}
-  .btn.email{background:#00ff6a;color:#000;}
-  .btn.email:hover{background:#00cc55;}
-  .btn.discord{background:#5865F2;color:#fff;}
-  .btn.discord:hover{background:#4752c4;}
-  .btn.lang{background:rgba(0,255,106,0.4);color:#000;margin-left:10px;}
-
-  footer{font-size:0.9em;color:#99ffcc;border-top:1px solid rgba(0,255,106,0.3);}
-  footer a{color:#00ff6a;text-decoration:none;}
-  footer a:hover{text-decoration:underline;}
-
-  /* Terminal */
-  #terminal{background:rgba(0,0,0,0.85);border:1px solid #00ff6a;border-radius:12px;max-width:1000px;margin:40px auto;padding:20px;text-align:left;box-shadow:0 0 20px rgba(0,255,106,0.4);}
-  #cmdTerminal{height:250px;overflow-y:auto;white-space:pre-wrap;font-size:14px;color:#00ff6a;font-family:'Roboto Mono',monospace;}
+/* Terminal */
+#terminal{background:rgba(0,0,0,0.85);border:1px solid #00ff6a;border-radius:12px;max-width:1000px;margin:40px auto;padding:20px;text-align:left;box-shadow:0 0 20px rgba(0,255,106,0.4);}
+#cmdTerminal{height:250px;overflow-y:auto;white-space:pre-wrap;font-size:14px;color:#00ff6a;font-family:'Roboto Mono',monospace;}
+.ascii-logo{color:#00ff6a;white-space:pre;font-family:'Courier New',monospace;text-shadow:0 0 8px #00ff6a;margin-bottom:10px;}
 </style>
 </head>
 <body>
@@ -141,16 +133,43 @@
     document.querySelectorAll('[data-en]').forEach(el=>{
       el.innerText = el.getAttribute(`data-${lang}`);
     });
-    startBootSequence(); // optionally restart boot in new language
+    startBootSequence();
   }
 
-  // Boot sequence text
+  // Boot sequence text + ASCII logo
   const bootLines = {
-    en:["Initializing system...","Loading security modules...","Connecting to server...","Verifying credentials...","Access granted ✅","-----------------------------","Welcome, User."],
-    gr:["Εκκίνηση συστήματος...","Φόρτωση modules ασφαλείας...","Σύνδεση με τον server...","Έλεγχος ταυτότητας...","Πρόσβαση επιβεβαιώθηκε ✅","-----------------------------","Καλώς ήρθες, Χρήστη."]
+    en:[
+      " ____             _       _     _ _ ",
+      "/ ___|  ___  _ __| |_ ___| |__ (_) |",
+      "\\___ \\ / _ \\| '__| __/ __| '_ \\| | |",
+      " ___) | (_) | |  | || (__| | | | | |",
+      "|____/ \\___/|_|   \\__\\___|_| |_|_|_|",
+      "",
+      "Initializing system...",
+      "Loading security modules...",
+      "Connecting to server...",
+      "Verifying credentials...",
+      "Access granted ✅",
+      "-----------------------------",
+      "Welcome, User."
+    ],
+    gr:[
+      " ____             _       _     _ _ ",
+      "/ ___|  ___  _ __| |_ ___| |__ (_) |",
+      "\\___ \\ / _ \\| '__| __/ __| '_ \\| | |",
+      " ___) | (_) | |  | || (__| | | | | |",
+      "|____/ \\___/|_|   \\__\\___|_| |_|_|_|",
+      "",
+      "Εκκίνηση συστήματος...",
+      "Φόρτωση modules ασφαλείας...",
+      "Σύνδεση με τον server...",
+      "Έλεγχος ταυτότητας...",
+      "Πρόσβαση επιβεβαιώθηκε ✅",
+      "-----------------------------",
+      "Καλώς ήρθες, Χρήστη."
+    ]
   };
 
-  // Terminal
   const terminal=document.getElementById("cmdTerminal");
 
   function startBootSequence(){
@@ -159,11 +178,12 @@
     function showLine(){
       if(index<bootLines[currentLang].length){
         let line=document.createElement("div");
+        if(index<5) line.classList.add('ascii-logo'); // first lines ASCII
         line.innerText = bootLines[currentLang][index];
         terminal.appendChild(line);
         terminal.scrollTop = terminal.scrollHeight;
         index++;
-        setTimeout(showLine,1200);
+        setTimeout(showLine,120);
       }
     }
     showLine();
@@ -181,7 +201,6 @@
       startBootSequence();
     }
   },300);
-
 </script>
 </body>
 </html>
