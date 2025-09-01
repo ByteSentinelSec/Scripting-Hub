@@ -1,178 +1,138 @@
 <!DOCTYPE html>
 <html lang="el">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scripting Hub 🚀</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scripting Hub 🚀</title>
+  <meta name="description" content="Cybersecurity Scripts • Ethical Hacking • Automation • Εκπαίδευση">
+  <meta name="theme-color" content="#00ff6a">
+  <!-- Favicon (base64 embedded) -->
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSJibGFjayIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgc3R5bGU9ImZpbGw6I2ZmZjsgZm9udC1zaXplOjE2cHg7IHRleHQtYW5jaG9yOm1pZGRsZTsgZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+PC90ZXh0Pjwvc3ZnPg==">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
-body { background: #000; color: #00ff6a; overflow-x: hidden; line-height: 1.6; }
+    * {margin:0; padding:0; box-sizing:border-box; font-family:'Roboto Mono', monospace;}
+    body {background:#000; color:#e0ffe0; overflow-x:hidden;}
 
-.matrix { position: fixed; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1; }
-.matrix span { position:absolute; top:-20px; color:#00ff6a; font-size:16px; animation:drop 3s linear infinite; opacity:0.7; }
-@keyframes drop {0% {top:-20px;} 100% {top:100%;}}
+    /* ===== Matrix Effect ===== */
+    .matrix {position:fixed; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1;}
+    .matrix span {position:absolute; top:-20px; color:#00ff6a; font-size:16px; animation:drop linear infinite; opacity:0.6;}
+    @keyframes drop {0%{transform:translateY(-20px);}100%{transform:translateY(100vh);}}
 
-header { background: rgba(0,0,0,0.85); padding:80px 20px; text-align:center; text-shadow: 0 0 10px #00ff6a; }
-header h1{font-size:3em; font-weight:700;}
-header p{font-size:1.2em; margin-top:15px; color:#77ffb0;}
+    /* ===== Glass Sections ===== */
+    header, section, footer {
+      background:rgba(0,0,0,0.6);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(0,255,106,0.3);
+      border-radius:16px;
+      padding:40px 20px;
+      margin:30px auto;
+      max-width:1000px;
+      text-align:center;
+      box-shadow:0 0 20px rgba(0,255,106,0.2);
+      animation:fadeIn 1.5s ease;
+    }
+    @keyframes fadeIn {from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);}}
 
-.terminal, #cmd-terminal { background: rgba(0,0,0,0.85); border:2px solid #00ff6a; border-radius:12px; padding:20px; width:90%; max-width:800px; margin:30px auto; box-shadow:0 0 25px #00ff6a; color:#00ff6a; font-family:'Courier New', monospace; }
-.line{margin:5px 0;}
-.cursor{display:inline-block; width:10px; background:#00ff6a; animation:blink 1s infinite;}
-@keyframes blink{50%{background:transparent;}}
+    h1,h2,h3,h4 {color:#00ff6a; text-shadow:0 0 12px #00ff6a;}
+    header h1 {font-size:3em;}
+    header p {margin-top:10px; font-size:1.2em; color:#99ffcc;}
 
-main{padding:50px 20px; max-width:1200px; margin:0 auto; color:#e0ffe0;}
-section{margin:60px 0; text-align:center;}
-h2{font-size:2.2em; margin-bottom:20px; color:#00ff6a; text-shadow:0 0 8px #00ff6a;}
-p{font-size:1em; margin-bottom:15px;}
+    /* ===== Grid Layouts ===== */
+    .grid {display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:20px;}
+    .card {
+      flex:1 1 280px;
+      background:rgba(0,0,0,0.7);
+      border:1px solid #00ff6a;
+      padding:25px;
+      border-radius:12px;
+      box-shadow:0 0 20px rgba(0,255,106,0.3);
+      transition:transform .3s, box-shadow .3s;
+    }
+    .card:hover {transform:translateY(-6px); box-shadow:0 0 30px rgba(0,255,106,0.7);}
+    .card h3, .card h4 {margin-bottom:10px;}
 
-.services, .extra-ideas{display:flex; flex-wrap:wrap; justify-content:center; gap:20px;}
-.service-box, .idea-box{background:rgba(0,0,0,0.7); padding:30px; border-radius:12px; border:1px solid #00ff6a; box-shadow:0 0 20px rgba(0,255,106,0.4); min-width:250px; max-width:300px; transition:transform .3s,box-shadow .3s;}
-.service-box:hover, .idea-box:hover{transform:translateY(-6px); box-shadow:0 0 30px rgba(0,255,106,0.8); cursor:pointer;}
-.service-box h3,.idea-box h4{color:#00ff6a; margin-bottom:10px;}
+    /* ===== Buttons ===== */
+    .btn {
+      display:inline-block;
+      margin:10px;
+      padding:12px 25px;
+      border-radius:8px;
+      font-size:1em;
+      font-weight:bold;
+      cursor:pointer;
+      text-decoration:none;
+      transition:all .3s;
+    }
+    .btn.email {background:#00ff6a; color:#000;}
+    .btn.email:hover {background:#00cc55;}
+    .btn.discord {background:#5865F2; color:#fff;}
+    .btn.discord:hover {background:#4752c4;}
 
-button{padding:12px 25px; border-radius:8px; font-size:1em; cursor:pointer; font-weight:bold; transition:background .3s, transform .2s;}
-button:hover{transform:translateY(-2px);}
-button.email{background:#00ff6a; color:#000;}
-button.email:hover{background:#00cc55;}
-button.discord{background:#5865F2; color:#fff;}
-button.discord:hover{background:#4752c4;}
+    /* ===== Footer ===== */
+    footer {font-size:0.9em; color:#99ffcc; border-top:1px solid rgba(0,255,106,0.3);}
+    footer a {color:#00ff6a; text-decoration:none;}
+    footer a:hover {text-decoration:underline;}
 
-footer{background:rgba(0,0,0,0.85); color:#00ff6a; text-align:center; padding:25px; font-size:14px; margin-top:50px; border-top:1px solid #00ff6a;}
-footer a{color:#77ffb0;} 
-footer a:hover{text-decoration:underline;}
-
-#cmd-input{width:100%; max-width:800px; margin:10px auto; display:block; padding:10px; border-radius:5px; border:1px solid #00ff6a; background:#000; color:#00ff6a; font-family:'Courier New', monospace;}
-@media(max-width:768px){.services,.extra-ideas{flex-direction:column; align-items:center;}}
-</style>
+    /* ===== Responsive ===== */
+    @media(max-width:768px){
+      header h1 {font-size:2.2em;}
+      .card {flex:1 1 100%;}
+    }
+  </style>
 </head>
 <body>
-<div class="matrix" id="matrix"></div>
+  <div class="matrix" id="matrix"></div>
 
-<header>
-<h1>Scripting Hub 🚀</h1>
-<p>Cybersecurity Scripts • Ethical Hacking • Automation</p>
-</header>
+  <header>
+    <h1>Scripting Hub 🚀</h1>
+    <p>Cybersecurity Scripts • Ethical Hacking • Automation</p>
+  </header>
 
-<div class="terminal" id="terminal"></div>
+  <section>
+    <h2>Για εμάς</h2>
+    <p>Στο <strong>Scripting Hub</strong> δημιουργούμε scripts για την προστασία, την ασφάλεια και την εκπαίδευση στον κυβερνοχώρο. Στόχος μας είναι να παρέχουμε εργαλεία που κάνουν την τεχνολογία πιο ασφαλή και αποδοτική.</p>
+  </section>
 
-<main>
-<section>
-<h2>Για εμάς</h2>
-<p>Στο <strong>Scripting Hub</strong> δημιουργούμε scripts για την προστασία και την ασφάλεια των υπολογιστών. Παρέχουμε λύσεις αυτοματισμού, εργαλεία ανίχνευσης απειλών και εκπαίδευση για πιο ασφαλή χρήση της τεχνολογίας.</p>
-</section>
+  <section>
+    <h2>Υπηρεσίες</h2>
+    <div class="grid">
+      <div class="card"><h3>Scripts Ασφαλείας 🔐</h3><p>Έτοιμα εργαλεία για ανίχνευση απειλών και ενίσχυση συστημάτων.</p></div>
+      <div class="card"><h3>Αυτοματισμοί ⚙️</h3><p>Αυτοματοποιημένες λύσεις για monitoring και προστασία δεδομένων.</p></div>
+      <div class="card"><h3>Εκπαίδευση 🧑‍💻</h3><p>Tutorials και οδηγοί για ethical hacking & cyber hygiene.</p></div>
+    </div>
+  </section>
 
-<section>
-<h2>Υπηρεσίες μας</h2>
-<div class="services">
-<div class="service-box"><h3>Scripts Ασφαλείας 🔐</h3><p>Έτοιμα scripts για ενίσχυση της ασφάλειας των συστημάτων σας.</p></div>
-<div class="service-box"><h3>Αυτοματισμοί Προστασίας ⚙️</h3><p>Εργαλεία που αυτοματοποιούν την προστασία δεδομένων και monitoring.</p></div>
-<div class="service-box"><h3>Εκπαίδευση & Οδηγοί 🧑‍💻</h3><p>Tutorials και οδηγοί για χρήση scripts και βελτίωση της κυβερνοασφάλειας.</p></div>
-</div>
-</section>
+  <section>
+    <h2>Επικοινωνία</h2>
+    <a href="mailto:lenosmantis16@gmail.com" class="btn email">📧 Στείλε Email</a>
+    <a href="https://discord.gg/yU55r23MU3" class="btn discord">💬 Join Discord</a>
+  </section>
 
-<section>
-<h2>Επικοινωνία</h2>
-<div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
-<button class="email" onclick="window.location.href='mailto:lenosmantis16@gmail.com'">Στείλε Email</button>
-<button class="discord" onclick="window.location.href='https://discord.gg/yU55r23MU3'">Join Discord</button>
-</div>
-</section>
+  <section>
+    <h2>Extra Ιδέες</h2>
+    <div class="grid">
+      <div class="card"><h4>Open-Source Scripts 💻</h4><p>Δημοσιεύουμε δωρεάν scripts για την κοινότητα.</p></div>
+      <div class="card"><h4>Sharing 🌐</h4><p>Χώρος για ανταλλαγή projects και συνεργασίες.</p></div>
+      <div class="card"><h4>Custom Requests ✨</h4><p>Scripts προσαρμοσμένα στις ανάγκες σας.</p></div>
+    </div>
+  </section>
 
-<section>
-<h2>Extra Ιδέες / Προτάσεις</h2>
-<div class="extra-ideas">
-<div class="idea-box"><h4>Open-Source Scripts 💻</h4><p>Δημοσιεύουμε δωρεάν scripts για την κοινότητα.</p></div>
-<div class="idea-box"><h4>Script Sharing 🌐</h4><p>Χώρος ανταλλαγής ιδεών και scripts ανάμεσα στους χρήστες.</p></div>
-<div class="idea-box"><h4>Custom Requests ✨</h4><p>Scripts προσαρμοσμένα στις ανάγκες του συστήματός σας.</p></div>
-</div>
-</section>
+  <footer>
+    © 2025 — <strong>Scripting Hub</strong> | Powered by <a href="#">CyberShield Group</a>
+  </footer>
 
-<section>
-<h2>Interactive Linux CMD 💻</h2>
-<div class="terminal" id="cmd-terminal"><div>> Welcome to Scripting Hub CMD. Type <strong>help</strong> for commands.</div></div>
-<input type="text" id="cmd-input" placeholder="Type command...">
-</section>
-</main>
-
-<footer>© 2025 — Δημιουργία από το <strong>CyberShield Group</strong> | Scripts & Ethical Hacking</footer>
-
-<script>
-// ===== MATRIX EFFECT =====
-const matrix=document.getElementById("matrix");
-for(let i=0;i<150;i++){
-  let span=document.createElement("span");
-  span.innerText=Math.random()>0.5?"1":"0";
-  span.style.left=Math.random()*100+"%";
-  span.style.animationDuration=(Math.random()*3+2)+"s";
-  span.style.fontSize=(Math.random()*10+12)+"px";
-  matrix.appendChild(span);
-}
-
-// ===== INTRO TERMINAL =====
-const terminal=document.getElementById("terminal");
-const introLines=["Initializing Scripting Hub...","Loading security modules...","Scripts ready: OK","Welcome, user."];
-function typeLines(lines,i=0){
-  if(i<lines.length){
-    let lineDiv=document.createElement("div"); lineDiv.className="line"; terminal.appendChild(lineDiv);
-    let j=0;
-    let charInterval=setInterval(()=>{
-      if(j<lines[i].length){lineDiv.appendChild(document.createTextNode(lines[i][j])); j++;}
-      else{clearInterval(charInterval); setTimeout(()=>typeLines(lines,i+1),200);}
-    },40);
-  }
-}
-typeLines(introLines);
-
-// ===== VIRTUAL FILESYSTEM & CMD =====
-const cmdTerminal=document.getElementById("cmd-terminal");
-const cmdInput=document.getElementById("cmd-input");
-
-let fs = {"home":{}};
-let cwd = ["home"];
-
-function getDir(pathArray){let dir=fs; for(let p of pathArray) dir=dir[p]; return dir;}
-function pathArray(path){return path.startsWith("/") ? path.slice(1).split("/").filter(x=>x) : cwd.concat(path.split("/").filter(x=>x));}
-function basename(path){let parts=path.split("/"); return parts[parts.length-1];}
-function dirname(path){let parts=path.split("/"); parts.pop(); return parts.join("/");}
-
-function cmdOutput(text){let line=document.createElement("div"); line.innerText=text; cmdTerminal.appendChild(line); cmdTerminal.scrollTop=cmdTerminal.scrollHeight;}
-
-cmdInput.addEventListener("keydown",function(e){
-  if(e.key==="Enter"){
-    let input=cmdInput.value.trim(); cmdInput.value="";
-    if(!input) return;
-    let args=input.split(" "); let cmd=args.shift().toLowerCase();
-    cmdOutput("> "+input);
-
-    switch(cmd){
-      case "help": cmdOutput("Available commands: help, about, scripts, contact, ls, pwd, cd, mkdir, touch, rm, mv, cp, cat, echo, whoami, date, clear"); break;
-      case "about": cmdOutput("Scripting Hub: Δημιουργούμε scripts για ασφάλεια, αυτοματισμό και εκπαίδευση."); break;
-      case "scripts": cmdOutput("Available scripts: firewall-check, malware-scan, backup-automation"); break;
-      case "contact": cmdOutput("Email: lenosmantis16@gmail.com | Discord: https://discord.gg/yU55r23MU3"); break;
-      case "pwd": cmdOutput("/"+cwd.join("/")); break;
-      case "ls": {let dir=getDir(cwd); cmdOutput(Object.keys(dir).join("  ")||"(empty)");} break;
-      case "cd": 
-        if(!args[0]){ cmdOutput("Usage: cd <folder>"); } 
-        else if(args[0]===".."){ if(cwd.length>1) cwd.pop(); } 
-        else { let dir=getDir(cwd); if(dir[args[0]]) cwd.push(args[0]); else cmdOutput("No such directory"); } 
-        break;
-      case "mkdir": if(!args[0]){cmdOutput("Usage: mkdir <foldername>");} else{let dir=getDir(cwd); if(dir[args[0]]) cmdOutput("Folder exists"); else dir[args[0]]={};} break;
-      case "touch": if(!args[0]){cmdOutput("Usage: touch <filename>");} else{let dir=getDir(cwd); dir[args[0]]="file";} break;
-      case "rm": if(!args[0]){cmdOutput("Usage: rm <filename/foldername>");} else{let dir=getDir(cwd); if(!dir[args[0]]) cmdOutput("No such file/folder"); else delete dir[args[0]];} break;
-      case "mv": if(!args[0]||!args[1]){cmdOutput("Usage: mv <source> <destination>");} else{let dir=getDir(cwd); if(!dir[args[0]]){cmdOutput("Source does not exist");}else{dir[args[1]]=dir[args[0]]; delete dir[args[0]];}} break;
-      case "cp": if(!args[0]||!args[1]){cmdOutput("Usage: cp <source> <destination");} else{let dir=getDir(cwd); if(!dir[args[0]]) cmdOutput("Source does not exist"); else dir[args[1]]=dir[args[0]];} break;
-      case "cat": if(!args[0]){cmdOutput("Usage: cat <filename>");} else{let dir=getDir(cwd); if(!dir[args[0]]) cmdOutput("No such file"); else cmdOutput("[contents of "+args[0]+"]");} break;
-      case "echo": cmdOutput(args.join(" ")); break;
-      case "whoami": cmdOutput("guest"); break;
-      case "date": cmdOutput(new Date().toString()); break;
-      case "clear": cmdTerminal.innerHTML=""; break;
-      default: cmdOutput("Command not found: "+cmd);
+  <script>
+    // Matrix effect generator
+    const matrix=document.getElementById("matrix");
+    for(let i=0;i<150;i++){
+      let span=document.createElement("span");
+      span.innerText=Math.random()>0.5?"1":"0";
+      span.style.left=Math.random()*100+"%";
+      span.style.animationDuration=(Math.random()*3+2)+"s";
+      span.style.fontSize=(Math.random()*12+12)+"px";
+      matrix.appendChild(span);
     }
-  }
-});
-</script>
+  </script>
 </body>
 </html>
