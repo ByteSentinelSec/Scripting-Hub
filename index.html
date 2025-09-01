@@ -137,10 +137,4 @@ body.light .matrix span { color: #00aa66; }
 const matrix = document.getElementById("matrix");
 for (let i=0; i<70; i++) {
   let span = document.createElement("span");
-  span.innerText = Math.random() > 0.5 ? "1" : "0";
-  span.style.left = Math.random() * 100 + "%";
-  span.style.animationDuration = (Math.random() * 3 + 2) + "s";
-  matrix.appendChild(span);
-}
-
-//
+  span.innerText = Math.random() > 0.5 ? "1
