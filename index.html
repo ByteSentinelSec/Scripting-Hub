@@ -43,9 +43,13 @@ p { font-size: 1em; margin-bottom: 15px; }
 .service-box:hover, .idea-box:hover { transform: translateY(-6px); box-shadow: 0 0 25px rgba(0,255,106,0.8); cursor: pointer; }
 .service-box h3, .idea-box h4 { color: #00ff6a; margin-bottom: 10px; }
 
-/* ===== BUTTON ===== */
-button { padding: 12px 25px; background: #00ff6a; color: #000; border: none; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold; transition: background .3s, transform .2s; }
-button:hover { background: #00cc55; transform: translateY(-2px); }
+/* ===== BUTTONS ===== */
+button { padding: 12px 25px; border: none; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold; transition: background .3s, transform .2s; }
+button:hover { transform: translateY(-2px); }
+button.email { background: #00ff6a; color: #000; }
+button.email:hover { background: #00cc55; }
+button.discord { background: #5865F2; color: #fff; }
+button.discord:hover { background: #4752c4; }
 
 /* ===== FOOTER ===== */
 footer { background: rgba(0,0,0,0.85); color: #00ff6a; text-align: center; padding: 25px; font-size: 14px; margin-top: 50px; border-top: 1px solid #00ff6a; }
@@ -90,8 +94,11 @@ footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
 
   <section>
     <h2>Επικοινωνία</h2>
-    <p>Για οποιαδήποτε ερώτηση ή συνεργασία, στείλτε email στο <a href="mailto:lenosmantis16@gmail.com">lenosmantis16@gmail.com</a></p>
-    <button onclick="window.location.href='mailto:lenosmantis16@gmail.com'">Στείλε Email</button>
+    <p>Για οποιαδήποτε ερώτηση ή συνεργασία:</p>
+    <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+      <button class="email" onclick="window.location.href='mailto:lenosmantis16@gmail.com'">Στείλε Email</button>
+      <button class="discord" onclick="window.location.href='https://discord.gg/yU55r23MU3'">Join Discord</button>
+    </div>
   </section>
 
   <section>
@@ -135,7 +142,7 @@ typeSound.volume = 0.2;
 function fakeLoading(callback) {
   let width = 0;
   const interval = setInterval(() => {
-    width += Math.random() * 3; // τυχαία ταχύτητα
+    width += Math.random() * 3;
     if (width >= 100) { width = 100; clearInterval(interval); callback(); }
     progressBar.style.width = width + "%";
   }, 80);
