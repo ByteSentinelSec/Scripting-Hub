@@ -9,16 +9,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto Mono',monospace;}
 body{background:#000;color:#00ff6a;overflow-x:hidden;position:relative;}
-/* Loading */
+/* Loading Screen */
 #loading{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;color:#00ff6a;}
 .progress{width:300px;height:20px;border:1px solid #00ff6a;border-radius:10px;overflow:hidden;margin-top:20px;}
 .bar{height:100%;width:0;background:#00ff6a;transition:width 0.3s;}
-/* Matrix & particles background */
+/* Background effects */
 .matrix, .particles{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;}
 .matrix span, .particles div{position:absolute;color:#00ff6a;font-size:16px;animation:drop linear infinite;opacity:0.15;}
 .particles div{font-size:3px;opacity:0.2;}
 @keyframes drop{0%{transform:translateY(-20px);}100%{transform:translateY(100vh);}}
-/* Glass panels */
+/* Panels & Sections */
 header,section,footer{background:rgba(0,0,0,0.7);border-radius:12px;padding:40px 20px;margin:30px auto;max-width:1000px;text-align:center;box-shadow:0 0 20px rgba(0,255,106,0.3);opacity:0;transform:translateY(20px);transition:opacity 1s ease, transform 1s ease;}
 header.visible, section.visible, footer.visible{opacity:1;transform:translateY(0);}
 h1,h2{color:#00ff6a;text-shadow:0 0 10px #00ff6a;}
@@ -106,7 +106,7 @@ h1,h2{color:#00ff6a;text-shadow:0 0 10px #00ff6a;}
 </footer>
 
 <script>
-// Matrix
+// Matrix background
 const matrix=document.getElementById("matrix");
 function createMatrix(){for(let i=0;i<120;i++){let span=document.createElement("span");span.innerText=Math.random()>0.5?"1":"0";span.style.left=Math.random()*100+"%";span.style.animationDuration=(Math.random()*3+3)+"s";matrix.appendChild(span);}}
 createMatrix();
@@ -121,7 +121,7 @@ createParticles();
 let currentLang='en';
 function setLanguage(lang){currentLang=lang;document.querySelectorAll('[data-en]').forEach(el=>{el.innerText = el.getAttribute(`data-${lang}`);});startBootSequence();}
 
-// Boot sequence with beep
+// Boot sequence
 const bootLines={en:["Initializing system...","Loading security modules...","Connecting to server...","Access granted ✅","Welcome, User."],gr:["Εκκίνηση συστήματος...","Φόρτωση modules ασφαλείας...","Σύνδεση με τον server...","Πρόσβαση επιβεβαιώθηκε ✅","Καλώς ήρθες, Χρήστη."]};
 const terminal=document.getElementById("cmdTerminal");
 function startBootSequence(){
@@ -153,7 +153,7 @@ const sections=document.querySelectorAll('header, section, footer');
 function revealSections(){sections.forEach((s,i)=>{setTimeout(()=>{s.classList.add('visible');}, i*300);});}
 window.addEventListener('scroll',()=>{sections.forEach(sec=>{const rect=sec.getBoundingClientRect(); if(rect.top<window.innerHeight-100) sec.classList.add('visible');});});
 
-// Interactive card scripts with typing & sound
+// Interactive card scripts
 document.querySelectorAll('.card').forEach(card=>{
   const preview = card.querySelector('.script-preview');
   let lines = card.getAttribute('data-script').split('\n');
