@@ -124,28 +124,10 @@ function setLanguage(lang){currentLang=lang;document.querySelectorAll('[data-en]
 // Boot sequence
 const bootLines={en:["Initializing system...","Loading security modules...","Connecting to server...","Access granted ✅","Welcome, User."],gr:["Εκκίνηση συστήματος...","Φόρτωση modules ασφαλείας...","Σύνδεση με τον server...","Πρόσβαση επιβεβαιώθηκε ✅","Καλώς ήρθες, Χρήστη."]};
 const terminal=document.getElementById("cmdTerminal");
-function startBootSequence(){
-  terminal.innerHTML='';let index=0;
-  const beep = new Audio("https://www.soundjay.com/button/beep-07.wav");
-  function showLine(){
-    if(index<bootLines[currentLang].length){
-      let line=document.createElement("div");line.classList.add('ascii-logo');
-      line.innerText=bootLines[currentLang][index];
-      terminal.appendChild(line);
-      terminal.scrollTop=terminal.scrollHeight;
-      beep.play();
-      index++;
-      setTimeout(showLine,400);
-    }
-  }
-  showLine();
-}
+function startBootSequence(){terminal.innerHTML='';let index=0;function showLine(){if(index<bootLines[currentLang].length){let line=document.createElement("div");line.classList.add('ascii-logo');line.innerText=bootLines[currentLang][index];terminal.appendChild(line);terminal.scrollTop=terminal.scrollHeight;index++;setTimeout(showLine,400);}} showLine();}
 
 // Loading bar
-const bar=document.getElementById("bar");let progress=0;let loadInterval=setInterval(()=>{
-  progress+=10;bar.style.width=progress+"%";
-  if(progress>=100){clearInterval(loadInterval);setTimeout(()=>{document.getElementById("loading").style.display="none"; startBootSequence(); revealSections();},500);}
-},400);
+const bar=document.getElementById("bar");let progress=0;let loadInterval=setInterval(()=>{progress+=10;bar.style.width=progress+"%";if(progress>=100){clearInterval(loadInterval);setTimeout(()=>{document.getElementById("loading").style.display="none"; startBootSequence(); revealSections();},500);}},400);
 
 // Reveal sections
 const sections=document.querySelectorAll('header, section, footer');
@@ -154,78 +136,11 @@ window.addEventListener('scroll',()=>{sections.forEach(sec=>{const rect=sec.getB
 
 // Interactive card scripts
 document.querySelectorAll('.card').forEach(card=>{
-  const preview = card.querySelector('.script-preview');
-  let lines = card.getAttribute('data-script').split('\n');
-  let interval; const beep = new Audio("https://www.soundjay.com/button/beep-07.wav");
-  card.addEventListener('mouseenter',()=>{
-    preview.innerText=''; let i=0;
-    interval=setInterval(()=>{
-      if(i<lines.length){preview.innerText += lines[i]+'\n'; beep.play(); i++;} else {clearInterval(interval);}
-    },300);
-  });
-  card.addEventListener('mouseleave',()=>{clearInterval(interval); preview.innerText='';});
-});
-</script>
-</body>
-</html>
-const matrix=document.getElementById("matrix");
-function createMatrix(){for(let i=0;i<120;i++){let span=document.createElement("span");span.innerText=Math.random()>0.5?"1":"0";span.style.left=Math.random()*100+"%";span.style.animationDuration=(Math.random()*3+3)+"s";matrix.appendChild(span);}}
-createMatrix();
-setInterval(()=>{matrix.innerHTML=''; createMatrix();},12000);
-
-// Particles
-const particles=document.getElementById("particles");
-function createParticles(){for(let i=0;i<60;i++){let p=document.createElement("div");p.style.left=Math.random()*100+"%";p.style.top=Math.random()*100+"%";particles.appendChild(p);}}
-createParticles();
-
-// Language
-let currentLang='en';
-function setLanguage(lang){currentLang=lang;document.querySelectorAll('[data-en]').forEach(el=>{el.innerText = el.getAttribute(`data-${lang}`);});startBootSequence();}
-
-// Boot sequence
-const bootLines={en:["Initializing system...","Loading security modules...","Connecting to server...","Access granted ✅","Welcome, User."],gr:["Εκκίνηση συστήματος...","Φόρτωση modules ασφαλείας...","Σύνδεση με τον server...","Πρόσβαση επιβεβαιώθηκε ✅","Καλώς ήρθες, Χρήστη."]};
-const terminal=document.getElementById("cmdTerminal");
-function startBootSequence(){
-  terminal.innerHTML='';let index=0;
-  const beep = new Audio("https://www.soundjay.com/button/beep-07.wav");
-  function showLine(){
-    if(index<bootLines[currentLang].length){
-      let line=document.createElement("div");
-      line.classList.add('ascii-logo');
-      line.innerText=bootLines[currentLang][index];
-      terminal.appendChild(line);
-      terminal.scrollTop=terminal.scrollHeight;
-      beep.play();
-      index++;
-      setTimeout(showLine,400);
-    }
-  }
-  showLine();
-}
-
-// Loading bar
-const bar=document.getElementById("bar");let progress=0;let loadInterval=setInterval(()=>{
-  progress+=10;bar.style.width=progress+"%";
-  if(progress>=100){clearInterval(loadInterval);setTimeout(()=>{document.getElementById("loading").style.display="none"; startBootSequence(); revealSections();},500);}
-},400);
-
-// Reveal sections
-const sections=document.querySelectorAll('header, section, footer');
-function revealSections(){sections.forEach((s,i)=>{setTimeout(()=>{s.classList.add('visible');}, i*300);});}
-window.addEventListener('scroll',()=>{sections.forEach(sec=>{const rect=sec.getBoundingClientRect(); if(rect.top<window.innerHeight-100) sec.classList.add('visible');});});
-
-// Interactive card scripts
-document.querySelectorAll('.card').forEach(card=>{
-  const preview = card.querySelector('.script-preview');
-  let lines = card.getAttribute('data-script').split('\n');
-  let interval; const beep = new Audio("https://www.soundjay.com/button/beep-07.wav");
-  card.addEventListener('mouseenter',()=>{
-    preview.innerText=''; let i=0;
-    interval=setInterval(()=>{
-      if(i<lines.length){preview.innerText += lines[i]+'\n'; beep.play(); i++;} else {clearInterval(interval);}
-    },300);
-  });
-  card.addEventListener('mouseleave',()=>{clearInterval(interval); preview.innerText='';});
+  const preview=card.querySelector('.script-preview');
+  let lines=card.getAttribute('data-script').split('\n');
+  let interval;
+  card.addEventListener('mouseenter',()=>{preview.innerText=''; let i=0; interval=setInterval(()=>{if(i<lines.length){preview.innerText+=lines[i]+'\n';i++;}else{clearInterval(interval);}},300);});
+  card.addEventListener('mouseleave',()=>{clearInterval(interval);preview.innerText='';});
 });
 </script>
 </body>
