@@ -6,82 +6,59 @@
   <title>Scripting Hub 🚀</title>
   <meta name="description" content="Cybersecurity Scripts • Ethical Hacking • Automation • Εκπαίδευση">
   <meta name="theme-color" content="#00ff6a">
-  <!-- Favicon (base64 embedded) -->
-  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiBmaWxsPSJibGFjayIvPjx0ZXh0IHg9IjE2IiB5PSIyMiIgc3R5bGU9ImZpbGw6I2ZmZjsgZm9udC1zaXplOjE2cHg7IHRleHQtYW5jaG9yOm1pZGRsZTsgZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+PC90ZXh0Pjwvc3ZnPg==">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto Mono', monospace;}
+    body{background:#000;color:#e0ffe0;overflow-x:hidden;}
 
-    * {margin:0; padding:0; box-sizing:border-box; font-family:'Roboto Mono', monospace;}
-    body {background:#000; color:#e0ffe0; overflow-x:hidden;}
-
-    /* ===== Matrix Effect ===== */
-    .matrix {position:fixed; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1;}
-    .matrix span {position:absolute; top:-20px; color:#00ff6a; font-size:16px; animation:drop linear infinite; opacity:0.6;}
-    @keyframes drop {0%{transform:translateY(-20px);}100%{transform:translateY(100vh);}}
-
-    /* ===== Glass Sections ===== */
-    header, section, footer {
-      background:rgba(0,0,0,0.6);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(0,255,106,0.3);
-      border-radius:16px;
-      padding:40px 20px;
-      margin:30px auto;
-      max-width:1000px;
-      text-align:center;
-      box-shadow:0 0 20px rgba(0,255,106,0.2);
-      animation:fadeIn 1.5s ease;
+    /* Loading screen */
+    #loading{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:#000;display:flex;flex-direction:column;
+      justify-content:center;align-items:center;z-index:9999;color:#00ff6a;
     }
-    @keyframes fadeIn {from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);}}
+    .progress{width:300px;height:20px;border:1px solid #00ff6a;border-radius:10px;overflow:hidden;margin-top:20px;}
+    .bar{height:100%;width:0;background:#00ff6a;transition:width 0.3s;}
 
-    h1,h2,h3,h4 {color:#00ff6a; text-shadow:0 0 12px #00ff6a;}
-    header h1 {font-size:3em;}
-    header p {margin-top:10px; font-size:1.2em; color:#99ffcc;}
+    /* Matrix background */
+    .matrix{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;}
+    .matrix span{position:absolute;top:-20px;color:#00ff6a;font-size:16px;animation:drop linear infinite;opacity:0.6;}
+    @keyframes drop{0%{transform:translateY(-20px);}100%{transform:translateY(100vh);}}
 
-    /* ===== Grid Layouts ===== */
-    .grid {display:flex; flex-wrap:wrap; gap:20px; justify-content:center; margin-top:20px;}
-    .card {
-      flex:1 1 280px;
-      background:rgba(0,0,0,0.7);
-      border:1px solid #00ff6a;
-      padding:25px;
-      border-radius:12px;
-      box-shadow:0 0 20px rgba(0,255,106,0.3);
-      transition:transform .3s, box-shadow .3s;
-    }
-    .card:hover {transform:translateY(-6px); box-shadow:0 0 30px rgba(0,255,106,0.7);}
-    .card h3, .card h4 {margin-bottom:10px;}
+    /* Glass panels */
+    header,section,footer{background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border:1px solid rgba(0,255,106,0.3);border-radius:16px;padding:40px 20px;margin:30px auto;max-width:1000px;text-align:center;box-shadow:0 0 20px rgba(0,255,106,0.2);animation:fadeIn 1.5s ease;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-    /* ===== Buttons ===== */
-    .btn {
-      display:inline-block;
-      margin:10px;
-      padding:12px 25px;
-      border-radius:8px;
-      font-size:1em;
-      font-weight:bold;
-      cursor:pointer;
-      text-decoration:none;
-      transition:all .3s;
-    }
-    .btn.email {background:#00ff6a; color:#000;}
-    .btn.email:hover {background:#00cc55;}
-    .btn.discord {background:#5865F2; color:#fff;}
-    .btn.discord:hover {background:#4752c4;}
+    h1,h2{color:#00ff6a;text-shadow:0 0 12px #00ff6a;}
+    header h1{font-size:3em;}
+    header p{margin-top:10px;font-size:1.2em;color:#99ffcc;}
 
-    /* ===== Footer ===== */
-    footer {font-size:0.9em; color:#99ffcc; border-top:1px solid rgba(0,255,106,0.3);}
-    footer a {color:#00ff6a; text-decoration:none;}
-    footer a:hover {text-decoration:underline;}
+    .grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:20px;}
+    .card{flex:1 1 280px;background:rgba(0,0,0,0.7);border:1px solid #00ff6a;padding:25px;border-radius:12px;box-shadow:0 0 20px rgba(0,255,106,0.3);transition:transform .3s, box-shadow .3s;}
+    .card:hover{transform:translateY(-6px);box-shadow:0 0 30px rgba(0,255,106,0.7);}
 
-    /* ===== Responsive ===== */
-    @media(max-width:768px){
-      header h1 {font-size:2.2em;}
-      .card {flex:1 1 100%;}
-    }
+    .btn{display:inline-block;margin:10px;padding:12px 25px;border-radius:8px;font-size:1em;font-weight:bold;cursor:pointer;text-decoration:none;transition:all .3s;}
+    .btn.email{background:#00ff6a;color:#000;}
+    .btn.email:hover{background:#00cc55;}
+    .btn.discord{background:#5865F2;color:#fff;}
+    .btn.discord:hover{background:#4752c4;}
+
+    footer{font-size:0.9em;color:#99ffcc;border-top:1px solid rgba(0,255,106,0.3);}
+    footer a{color:#00ff6a;text-decoration:none;}
+    footer a:hover{text-decoration:underline;}
+
+    /* Terminal */
+    #terminal{background:rgba(0,0,0,0.85);border:1px solid #00ff6a;border-radius:12px;max-width:1000px;margin:40px auto;padding:20px;text-align:left;box-shadow:0 0 20px rgba(0,255,106,0.4);}
+    #cmdTerminal{height:250px;overflow-y:auto;white-space:pre-wrap;font-size:14px;color:#00ff6a;font-family:'Roboto Mono',monospace;}
   </style>
 </head>
 <body>
+  <!-- Loading screen -->
+  <div id="loading">
+    <h2>Φόρτωση συστήματος...</h2>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+  </div>
+
   <div class="matrix" id="matrix"></div>
 
   <header>
@@ -89,43 +66,40 @@
     <p>Cybersecurity Scripts • Ethical Hacking • Automation</p>
   </header>
 
+  <!-- Auto Terminal -->
+  <section id="terminal">
+    <div id="cmdTerminal"></div>
+  </section>
+
+  <!-- Sections -->
   <section>
     <h2>Για εμάς</h2>
-    <p>Στο <strong>Scripting Hub</strong> δημιουργούμε scripts για την προστασία, την ασφάλεια και την εκπαίδευση στον κυβερνοχώρο. Στόχος μας είναι να παρέχουμε εργαλεία που κάνουν την τεχνολογία πιο ασφαλή και αποδοτική.</p>
+    <p>Στο <strong>Scripting Hub</strong> δημιουργούμε scripts για ασφάλεια, αυτοματισμό και εκπαίδευση στον κυβερνοχώρο.</p>
   </section>
 
   <section>
     <h2>Υπηρεσίες</h2>
     <div class="grid">
-      <div class="card"><h3>Scripts Ασφαλείας 🔐</h3><p>Έτοιμα εργαλεία για ανίχνευση απειλών και ενίσχυση συστημάτων.</p></div>
-      <div class="card"><h3>Αυτοματισμοί ⚙️</h3><p>Αυτοματοποιημένες λύσεις για monitoring και προστασία δεδομένων.</p></div>
-      <div class="card"><h3>Εκπαίδευση 🧑‍💻</h3><p>Tutorials και οδηγοί για ethical hacking & cyber hygiene.</p></div>
+      <div class="card"><h3>Scripts Ασφαλείας 🔐</h3><p>Εργαλεία για ανίχνευση απειλών & ενίσχυση συστημάτων.</p></div>
+      <div class="card"><h3>Αυτοματισμοί ⚙️</h3><p>Λύσεις monitoring & προστασίας δεδομένων.</p></div>
+      <div class="card"><h3>Εκπαίδευση 🧑‍💻</h3><p>Tutorials & οδηγοί για ethical hacking & cyber hygiene.</p></div>
     </div>
   </section>
 
   <section>
     <h2>Επικοινωνία</h2>
-    <a href="mailto:lenosmantis16@gmail.com" class="btn email">📧 Στείλε Email</a>
-    <a href="https://discord.gg/yU55r23MU3" class="btn discord">💬 Join Discord</a>
-  </section>
-
-  <section>
-    <h2>Extra Ιδέες</h2>
-    <div class="grid">
-      <div class="card"><h4>Open-Source Scripts 💻</h4><p>Δημοσιεύουμε δωρεάν scripts για την κοινότητα.</p></div>
-      <div class="card"><h4>Sharing 🌐</h4><p>Χώρος για ανταλλαγή projects και συνεργασίες.</p></div>
-      <div class="card"><h4>Custom Requests ✨</h4><p>Scripts προσαρμοσμένα στις ανάγκες σας.</p></div>
-    </div>
+    <a href="mailto:lenosmantis16@gmail.com" class="btn email">📧 Email</a>
+    <a href="https://discord.gg/yU55r23MU3" class="btn discord">💬 Discord</a>
   </section>
 
   <footer>
-    © 2025 — <strong>Scripting Hub</strong> | Powered by <a href="#">CyberShield Group</a>
+    © 2025 — <strong>Scripting Hub</strong>
   </footer>
 
   <script>
-    // Matrix effect generator
+    // Matrix effect
     const matrix=document.getElementById("matrix");
-    for(let i=0;i<150;i++){
+    for(let i=0;i<120;i++){
       let span=document.createElement("span");
       span.innerText=Math.random()>0.5?"1":"0";
       span.style.left=Math.random()*100+"%";
@@ -133,6 +107,42 @@
       span.style.fontSize=(Math.random()*12+12)+"px";
       matrix.appendChild(span);
     }
+
+    // Boot sequence (Greek)
+    const terminal=document.getElementById("cmdTerminal");
+    const lines=[
+      "Εκκίνηση συστήματος...",
+      "Φόρτωση modules ασφαλείας...",
+      "Σύνδεση με τον server...",
+      "Έλεγχος ταυτότητας...",
+      "Πρόσβαση επιβεβαιώθηκε ✅",
+      "-----------------------------",
+      "Καλώς ήρθες, Χρήστη."
+    ];
+    let index=0;
+    function showLine(){
+      if(index<lines.length){
+        let line=document.createElement("div");
+        line.innerText=lines[index];
+        terminal.appendChild(line);
+        terminal.scrollTop=terminal.scrollHeight;
+        index++;
+        setTimeout(showLine,1200);
+      }
+    }
+
+    // Fake loading
+    const bar=document.getElementById("bar");
+    let progress=0;
+    let loadInterval=setInterval(()=>{
+      progress+=10;
+      bar.style.width=progress+"%";
+      if(progress>=100){
+        clearInterval(loadInterval);
+        document.getElementById("loading").style.display="none";
+        showLine();
+      }
+    },300);
   </script>
 </body>
 </html>
