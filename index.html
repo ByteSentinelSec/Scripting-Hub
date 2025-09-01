@@ -6,8 +6,14 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Roboto', sans-serif; background: #000; color: #00ff6a; line-height: 1.6; overflow-x: hidden; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; transition: background 0.3s, color 0.3s; }
+
+body {
+  background: #000;
+  color: #00ff6a;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
 /* ===== MATRIX BACKGROUND ===== */
 .matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; overflow: hidden; z-index: -1; }
@@ -15,9 +21,10 @@ body { font-family: 'Roboto', sans-serif; background: #000; color: #00ff6a; line
 @keyframes drop { 0% { top: -20px; } 100% { top: 100%; } }
 
 /* ===== HEADER ===== */
-header { background: rgba(0,0,0,0.8); color: #00ff6a; padding: 70px 20px; text-align: center; text-shadow: 0 0 10px #00ff6a; }
+header { background: rgba(0,0,0,0.8); color: #00ff6a; padding: 70px 20px; text-align: center; text-shadow: 0 0 10px #00ff6a; position: relative; }
 header h1 { font-size: 2.8em; font-weight: 700; }
 header p { font-size: 1.2em; margin-top: 15px; color: #77ffb0; }
+#theme-toggle { position: absolute; top: 20px; right: 20px; padding: 8px 15px; border:none; border-radius:5px; cursor:pointer; font-weight:bold; }
 
 /* ===== TERMINAL BOX ===== */
 .terminal { background: rgba(0,0,0,0.85); border: 2px solid #00ff6a; border-radius: 10px; padding: 20px; width: 90%; max-width: 800px; margin: 40px auto; box-shadow: 0 0 20px #00ff6a; color: #00ff6a; font-family: 'Courier New', monospace; }
@@ -37,14 +44,12 @@ p { font-size: 1em; margin-bottom: 15px; }
 
 /* ===== SERVICES & IDEAS ===== */
 .services, .extra-ideas { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-.service-box, .idea-box {
-  background: rgba(0,0,0,0.7); padding: 30px; border-radius: 12px; border: 1px solid #00ff6a; box-shadow: 0 0 15px rgba(0,255,106,0.4); min-width: 250px; max-width: 300px; transition: transform .3s, box-shadow .3s;
-}
+.service-box, .idea-box { background: rgba(0,0,0,0.7); padding: 30px; border-radius: 12px; border: 1px solid #00ff6a; box-shadow: 0 0 15px rgba(0,255,106,0.4); min-width: 250px; max-width: 300px; transition: transform .3s, box-shadow .3s; }
 .service-box:hover, .idea-box:hover { transform: translateY(-6px); box-shadow: 0 0 25px rgba(0,255,106,0.8); cursor: pointer; }
 .service-box h3, .idea-box h4 { color: #00ff6a; margin-bottom: 10px; }
 
 /* ===== BUTTONS ===== */
-button { padding: 12px 25px; border: none; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold; transition: background .3s, transform .2s; }
+button { padding: 12px 25px; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold; transition: background .3s, transform .2s; }
 button:hover { transform: translateY(-2px); }
 button.email { background: #00ff6a; color: #000; }
 button.email:hover { background: #00cc55; }
@@ -55,8 +60,19 @@ button.discord:hover { background: #4752c4; }
 footer { background: rgba(0,0,0,0.85); color: #00ff6a; text-align: center; padding: 25px; font-size: 14px; margin-top: 50px; border-top: 1px solid #00ff6a; }
 footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
 
+/* ===== LIGHT MODE ===== */
+body.light { background: #f4f7f9; color: #333; }
+body.light header { background: #eaeaea; color: #333; text-shadow: none; }
+body.light .terminal { background: #fff; color: #000; border-color: #333; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
+body.light .cursor { background: #000; }
+body.light .service-box, body.light .idea-box { background: #fff; border-color: #333; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+body.light button.email { background: #00cc55; color: #fff; }
+body.light button.discord { background: #5865F2; color: #fff; }
+body.light footer { background: #eaeaea; color: #333; border-top-color: #ccc; }
+body.light .matrix span { color: #00aa66; }
+
 /* ===== RESPONSIVE ===== */
-@media(max-width: 768px) { .services, .extra-ideas { flex-direction: column; align-items: center; } }
+@media(max-width:768px) { .services, .extra-ideas { flex-direction: column; align-items: center; } }
 </style>
 </head>
 <body>
@@ -67,6 +83,7 @@ footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
 <header>
   <h1>Scripting Hub 🚀</h1>
   <p>Cybersecurity Scripts • Ethical Hacking • Automation</p>
+  <button id="theme-toggle">Toggle Mode</button>
 </header>
 
 <!-- Fake Loading Progress -->
@@ -126,59 +143,4 @@ for (let i=0; i<70; i++) {
   matrix.appendChild(span);
 }
 
-// Terminal typing effect + fake loading
-const terminalLines = [
-  "Initializing Scripting Hub...",
-  "Loading security modules...",
-  "Scripts ready: OK",
-  "Welcome, user."
-];
-const terminal = document.getElementById("terminal");
-const progressBar = document.getElementById("progress-bar");
-const typeSound = new Audio("https://www.soundjay.com/keyboard/keyboard-1.mp3");
-typeSound.volume = 0.2;
-
-// Fake progress bar
-function fakeLoading(callback) {
-  let width = 0;
-  const interval = setInterval(() => {
-    width += Math.random() * 3;
-    if (width >= 100) { width = 100; clearInterval(interval); callback(); }
-    progressBar.style.width = width + "%";
-  }, 80);
-}
-
-// Typing effect με ήχο
-function typeLine(line, callback) {
-  let i = 0;
-  const cursor = document.createElement("span");
-  cursor.className = "cursor";
-  const lineDiv = document.createElement("div");
-  lineDiv.className = "line";
-  terminal.appendChild(lineDiv);
-  lineDiv.appendChild(cursor);
-
-  function typeChar() {
-    if (i < line.length) {
-      lineDiv.insertBefore(document.createTextNode(line[i]), cursor);
-      i++;
-      typeSound.currentTime = 0;
-      typeSound.play();
-      setTimeout(typeChar, 60);
-    } else callback();
-  }
-  typeChar();
-}
-
-function typeLines(lines, index = 0) {
-  if (index < lines.length) {
-    typeLine(lines[index], () => setTimeout(() => typeLines(lines, index + 1), 400));
-  }
-}
-
-// Εκτέλεση: πρώτα progress bar, μετά typing
-fakeLoading(() => typeLines(terminalLines));
-</script>
-
-</body>
-</html>
+//
