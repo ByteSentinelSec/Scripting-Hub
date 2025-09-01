@@ -1,5 +1,3 @@
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,25 +13,27 @@ body{background:#000;color:#00ff6a;overflow-x:hidden;position:relative;}
 #loading{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;color:#00ff6a;}
 .progress{width:300px;height:20px;border:1px solid #00ff6a;border-radius:10px;overflow:hidden;margin-top:20px;}
 .bar{height:100%;width:0;background:#00ff6a;transition:width 0.3s;}
-/* Matrix background */
-.matrix{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;opacity:0.15;}
-.matrix span{position:absolute;top:-20px;color:#00ff6a;font-size:16px;animation:drop linear infinite;opacity:0.3;}
+/* Matrix & particles background */
+.matrix, .particles{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;}
+.matrix span, .particles div{position:absolute;color:#00ff6a;font-size:16px;animation:drop linear infinite;opacity:0.15;}
+.particles div{font-size:3px;opacity:0.2;}
 @keyframes drop{0%{transform:translateY(-20px);}100%{transform:translateY(100vh);}}
 /* Glass panels */
 header,section,footer{background:rgba(0,0,0,0.7);border-radius:12px;padding:40px 20px;margin:30px auto;max-width:1000px;text-align:center;box-shadow:0 0 15px rgba(0,255,106,0.2);opacity:0;transform:translateY(20px);transition:opacity 1s ease, transform 1s ease;}
 header.visible, section.visible, footer.visible{opacity:1;transform:translateY(0);}
 h1,h2{color:#00ff6a;text-shadow:0 0 8px #00ff6a;}
 .grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:20px;}
-.card{flex:1 1 280px;background:rgba(0,0,0,0.75);border-radius:12px;padding:20px;box-shadow:0 0 15px rgba(0,255,106,0.2);transition:transform 0.3s,box-shadow 0.3s,background 0.3s;position:relative;cursor:pointer;}
-.card:hover{transform:scale(1.05) translateY(-5px);box-shadow:0 0 30px rgba(0,255,106,0.4);}
-/* Interactive script preview */
-.script-preview{position:absolute;top:100%;left:50%;transform:translateX(-50%);width:260px;background:rgba(0,0,0,0.85);color:#00ff6a;padding:10px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:opacity 0.3s, transform 0.3s;z-index:10;}
+.card{flex:1 1 280px;background:rgba(0,0,0,0.75);border-radius:12px;padding:20px;box-shadow:0 0 15px rgba(0,255,106,0.2);transition:transform 0.3s,box-shadow 0.3s,background 0.3s;position:relative;cursor:pointer;transform-style:preserve-3d;}
+.card:hover{transform:scale(1.05) rotateX(1deg) rotateY(1deg);box-shadow:0 0 30px rgba(0,255,106,0.4);}
+.script-preview{position:absolute;top:100%;left:50%;transform:translateX(-50%);width:260px;background:rgba(0,0,0,0.85);color:#00ff6a;padding:10px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:opacity 0.3s, transform 0.3s;z-index:10;white-space:pre-wrap;overflow:hidden;}
 .card:hover .script-preview{opacity:1;transform:translateX(-50%) translateY(10px);}
 .btn{display:inline-block;margin:10px;padding:12px 25px;border-radius:6px;font-weight:bold;text-decoration:none;transition:all .3s;cursor:pointer;}
 .btn.email{background:#00ff6a;color:#000;} .btn.email:hover{background:#00cc55;}
 .btn.discord{background:#5865F2;color:#fff;} .btn.discord:hover{background:#4752c4;}
 .btn.lang{background:rgba(0,255,106,0.3);color:#000;margin-left:10px;}
-.btn.donate{background:#ff007f;color:#fff;font-weight:bold;transition:all 0.3s;} .btn.donate:hover{transform:scale(1.05);}
+.btn.donate{display:flex;align-items:center;justify-content:center;gap:10px;background:#ffc439;color:#003087;font-weight:bold;padding:12px 20px;border-radius:6px;text-decoration:none;transition:all .3s;}
+.btn.donate img{width:24px;height:24px;}
+.btn.donate:hover{transform:scale(1.05);}
 #terminal{background:rgba(0,0,0,0.85);border-radius:10px;padding:20px;margin:40px auto;max-width:1000px;box-shadow:0 0 15px rgba(0,255,106,0.2);}
 #cmdTerminal{height:200px;overflow-y:auto;font-size:14px;color:#00ff6a;white-space:pre-wrap;font-family:'Courier New',monospace;}
 .ascii-logo{font-family:'Courier New',monospace;color:#00ff6a;margin-bottom:10px;}
@@ -47,6 +47,7 @@ h1,h2{color:#00ff6a;text-shadow:0 0 8px #00ff6a;}
 </div>
 
 <div class="matrix" id="matrix"></div>
+<div class="particles" id="particles"></div>
 
 <header id="header">
   <h1>Scripting Hub 🚀</h1>
@@ -69,27 +70,29 @@ h1,h2{color:#00ff6a;text-shadow:0 0 8px #00ff6a;}
 <section id="services">
   <h2 data-en="Services" data-gr="Υπηρεσίες">Services</h2>
   <div class="grid">
-    <div class="card">
+    <div class="card" data-script="> firewall-check running...\n> Status: OK\n> Scan complete.">
       <h3>Security Scripts 🔐</h3>
       <p>Tools for system protection and threat monitoring.</p>
-      <div class="script-preview">> firewall-check running...\n> Status: OK</div>
+      <div class="script-preview"></div>
     </div>
-    <div class="card">
+    <div class="card" data-script="> backup-automation initiated...\n> Backing up files...\n> Completed successfully.">
       <h3>Automation ⚙️</h3>
       <p>Automate routine tasks and secure data efficiently.</p>
-      <div class="script-preview">> backup-automation initiated...\n> Completed successfully</div>
+      <div class="script-preview"></div>
     </div>
-    <div class="card">
+    <div class="card" data-script="> launching tutorial viewer...\n> Loading modules...\n> Ready for learning.">
       <h3>Education 🧑‍💻</h3>
       <p>Tutorials and guides for safe and ethical hacking.</p>
-      <div class="script-preview">> launching tutorial viewer...\n> Ready for learning</div>
+      <div class="script-preview"></div>
     </div>
   </div>
 </section>
 
 <section id="donate">
   <h2 data-en="Support Us / Donate" data-gr="Υποστηρίξτε μας / Donate">Support Us / Donate</h2>
-  <a href="https://paypal.me/LenosMantis" target="_blank" class="btn donate">💖 Donate via PayPal</a>
+  <a href="https://paypal.me/LenosMantis" target="_blank" class="btn donate">
+    <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal"> Donate via PayPal
+  </a>
 </section>
 
 <section id="contact">
@@ -103,72 +106,47 @@ h1,h2{color:#00ff6a;text-shadow:0 0 8px #00ff6a;}
 </footer>
 
 <script>
-// Matrix background
+// Matrix
 const matrix=document.getElementById("matrix");
-function createMatrix(){
-  for(let i=0;i<100;i++){
-    let span=document.createElement("span");
-    span.innerText=Math.random()>0.5?"1":"0";
-    span.style.left=Math.random()*100+"%";
-    span.style.animationDuration=(Math.random()*3+3)+"s";
-    matrix.appendChild(span);
-  }
-}
+function createMatrix(){for(let i=0;i<100;i++){let span=document.createElement("span");span.innerText=Math.random()>0.5?"1":"0";span.style.left=Math.random()*100+"%";span.style.animationDuration=(Math.random()*3+3)+"s";matrix.appendChild(span);}}
 createMatrix();
 setInterval(()=>{matrix.innerHTML=''; createMatrix();},10000);
 
+// Particles
+const particles=document.getElementById("particles");
+function createParticles(){for(let i=0;i<50;i++){let p=document.createElement("div");p.style.left=Math.random()*100+"%";p.style.top=Math.random()*100+"%";particles.appendChild(p);}}
+createParticles();
+
 // Language
 let currentLang='en';
-function setLanguage(lang){
-  currentLang=lang;
-  document.querySelectorAll('[data-en]').forEach(el=>{
-    el.innerText = el.getAttribute(`data-${lang}`);
-  });
-  startBootSequence();
-}
+function setLanguage(lang){currentLang=lang;document.querySelectorAll('[data-en]').forEach(el=>{el.innerText = el.getAttribute(`data-${lang}`);});startBootSequence();}
 
 // Boot sequence
-const bootLines={
-  en:["Initializing system...","Loading security modules...","Connecting to server...","Access granted ✅","Welcome, User."],
-  gr:["Εκκίνηση συστήματος...","Φόρτωση modules ασφαλείας...","Σύνδεση με τον server...","Πρόσβαση επιβεβαιώθηκε ✅","Καλώς ήρθες, Χρήστη."]
-};
+const bootLines={en:["Initializing system...","Loading security modules...","Connecting to server...","Access granted ✅","Welcome, User."],gr:["Εκκίνηση συστήματος...","Φόρτωση modules ασφαλείας...","Σύνδεση με τον server...","Πρόσβαση επιβεβαιώθηκε ✅","Καλώς ήρθες, Χρήστη."]};
 const terminal=document.getElementById("cmdTerminal");
-function startBootSequence(){
-  terminal.innerHTML='';
-  let index=0;
-  function showLine(){
-    if(index<bootLines[currentLang].length){
-      let line=document.createElement("div");
-      line.classList.add('ascii-logo');
-      line.innerText=bootLines[currentLang][index];
-      terminal.appendChild(line);
-      terminal.scrollTop=terminal.scrollHeight;
-      index++;
-      setTimeout(showLine,300);
-    }
-  }
-  showLine();
-}
+function startBootSequence(){terminal.innerHTML='';let index=0;function showLine(){if(index<bootLines[currentLang].length){let line=document.createElement("div");line.classList.add('ascii-logo');line.innerText=bootLines[currentLang][index];terminal.appendChild(line);terminal.scrollTop=terminal.scrollHeight;index++;setTimeout(showLine,300);}}showLine();}
 
 // Loading bar
-const bar=document.getElementById("bar");
-let progress=0;
-let loadInterval=setInterval(()=>{
-  progress+=10;
-  bar.style.width=progress+"%";
-  if(progress>=100){
-    clearInterval(loadInterval);
-    setTimeout(()=>{document.getElementById("loading").style.display="none"; startBootSequence(); revealSections();},500);
-  }
-},400);
+const bar=document.getElementById("bar");let progress=0;let loadInterval=setInterval(()=>{progress+=10;bar.style.width=progress+"%";if(progress>=100){clearInterval(loadInterval);setTimeout(()=>{document.getElementById("loading").style.display="none"; startBootSequence(); revealSections();},500);}},400);
 
-// Reveal sections with staggered delay
+// Reveal sections
 const sections=document.querySelectorAll('header, section, footer');
-function revealSections(){
-  sections.forEach((s,i)=>{setTimeout(()=>{s.classList.add('visible');}, i*300);});
-}
-window.addEventListener('scroll',()=>{
-  sections.forEach(sec=>{const rect=sec.getBoundingClientRect(); if(rect.top<window.innerHeight-100) sec.classList.add('visible');});
+function revealSections(){sections.forEach((s,i)=>{setTimeout(()=>{s.classList.add('visible');}, i*300);});}
+window.addEventListener('scroll',()=>{sections.forEach(sec=>{const rect=sec.getBoundingClientRect(); if(rect.top<window.innerHeight-100) sec.classList.add('visible');});});
+
+// Interactive card scripts
+document.querySelectorAll('.card').forEach(card=>{
+  const preview = card.querySelector('.script-preview');
+  let lines = card.getAttribute('data-script').split('\n');
+  let interval;
+  card.addEventListener('mouseenter',()=>{
+    preview.innerText='';
+    let i=0;
+    interval=setInterval(()=>{
+      if(i<lines.length){preview.innerText += lines[i]+'\n';i++;} else {clearInterval(interval);}
+    },300);
+  });
+  card.addEventListener('mouseleave',()=>{clearInterval(interval); preview.innerText='';});
 });
 </script>
 </body>
