@@ -6,38 +6,79 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Roboto', sans-serif;
-  background: #f4f7f9;
-  color: #333;
+  background: #000;
+  color: #00ff6a;
   line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== MATRIX BACKGROUND ===== */
+.matrix {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  overflow: hidden;
+  z-index: -1;
+}
+.matrix span {
+  position: absolute;
+  top: -20px;
+  color: #00ff6a;
+  font-size: 16px;
+  animation: drop 5s linear infinite;
+}
+@keyframes drop {
+  0% { top: -20px; }
+  100% { top: 100%; }
 }
 
 /* ===== HEADER ===== */
 header {
-  background: linear-gradient(135deg, #0b1d38, #1d4ed8);
-  color: #fff;
+  background: rgba(0,0,0,0.8);
+  color: #00ff6a;
   padding: 70px 20px;
   text-align: center;
+  text-shadow: 0 0 10px #00ff6a;
 }
 header h1 {
   font-size: 2.8em;
   font-weight: 700;
-  transition: transform .3s ease;
-}
-header h1:hover {
-  transform: scale(1.05);
 }
 header p {
   font-size: 1.2em;
-  color: #cbd6e0;
   margin-top: 15px;
+  color: #77ffb0;
+}
+
+/* ===== TERMINAL BOX ===== */
+.terminal {
+  background: rgba(0,0,0,0.85);
+  border: 2px solid #00ff6a;
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto;
+  box-shadow: 0 0 20px #00ff6a;
+  color: #00ff6a;
+  font-family: 'Courier New', monospace;
+}
+.line {
+  margin: 5px 0;
+}
+.cursor {
+  display: inline-block;
+  width: 10px;
+  background: #00ff6a;
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  50% { background: transparent; }
 }
 
 /* ===== MAIN CONTENT ===== */
@@ -45,6 +86,7 @@ main {
   padding: 50px 20px;
   max-width: 1200px;
   margin: 0 auto;
+  color: #e0ffe0;
 }
 section {
   margin: 60px 0;
@@ -53,7 +95,8 @@ section {
 h2 {
   font-size: 2em;
   margin-bottom: 20px;
-  color: #0b1d38;
+  color: #00ff6a;
+  text-shadow: 0 0 8px #00ff6a;
 }
 p {
   font-size: 1em;
@@ -68,53 +111,54 @@ p {
   gap: 20px;
 }
 .service-box, .idea-box {
-  background: #fff;
+  background: rgba(0,0,0,0.7);
   padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-  min-width: 260px;
+  border-radius: 12px;
+  border: 1px solid #00ff6a;
+  box-shadow: 0 0 15px rgba(0,255,106,0.4);
+  min-width: 250px;
   max-width: 300px;
   transition: transform .3s, box-shadow .3s;
 }
 .service-box:hover, .idea-box:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+  box-shadow: 0 0 25px rgba(0,255,106,0.8);
   cursor: pointer;
 }
 .service-box h3, .idea-box h4 {
-  color: #0b1d38;
-  margin-bottom: 12px;
+  color: #00ff6a;
+  margin-bottom: 10px;
 }
 
 /* ===== BUTTON ===== */
 button {
-  padding: 12px 28px;
-  background: linear-gradient(135deg, #1d4ed8, #2563eb);
-  color: #fff;
+  padding: 12px 25px;
+  background: #00ff6a;
+  color: #000;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 1em;
   cursor: pointer;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  font-weight: bold;
   transition: background .3s, transform .2s;
 }
 button:hover {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: #00cc55;
   transform: translateY(-2px);
 }
 
 /* ===== FOOTER ===== */
 footer {
-  background: #0b1d38;
-  color: #cbd6e0;
+  background: rgba(0,0,0,0.85);
+  color: #00ff6a;
   text-align: center;
   padding: 25px;
   font-size: 14px;
   margin-top: 50px;
+  border-top: 1px solid #00ff6a;
 }
 footer a {
-  color: #fff;
-  font-weight: bold;
+  color: #77ffb0;
 }
 footer a:hover {
   text-decoration: underline;
@@ -131,78 +175,87 @@ footer a:hover {
 </head>
 <body>
 
+<!-- Matrix Background -->
+<div class="matrix" id="matrix"></div>
+
 <header>
   <h1>Scripting Hub 🚀</h1>
-  <p>Cybersecurity • Ethical Hacking • Knowledge Sharing</p>
+  <p>Cybersecurity Scripts • Ethical Hacking • Automation</p>
 </header>
+
+<!-- Terminal Box -->
+<div class="terminal">
+  <div class="line">> Initializing Scripting Hub... <span class="cursor"></span></div>
+  <div class="line">> Loading security modules...</div>
+  <div class="line">> Scripts ready: <span style="color:lime">OK</span></div>
+  <div class="line">> Welcome, user.</div>
+</div>
 
 <main>
   <section>
     <h2>Για εμάς</h2>
-    <p><strong></strong><h2></h2>Δημιουργούμε έξυπνα scripts για την προστασία και την ασφάλεια των υπολογιστών.</h2></strong></p> 
-  Παρέχουμε λύσεις αυτοματισμού, εργαλεία ανίχνευσης απειλών και εκπαίδευση, ώστε να ενισχύουμε την κυβερνοασφάλεια και να κάνουμε τη χρήση της τεχνολογίας πιο ασφαλή και αξιόπιστη.</p>
+    <p>Στο <strong>Scripting Hub</strong> δημιουργούμε scripts για την προστασία και την ασφάλεια των υπολογιστών. Παρέχουμε λύσεις αυτοματισμού, εργαλεία ανίχνευσης απειλών και εκπαίδευση για πιο ασφαλή χρήση της τεχνολογίας.</p>
   </section>
 
   <section>
-  <h2>Υπηρεσίες μας</h2>
-  <div class="services">
-    
-    <div class="service-box">
-      <h3>Scripts Ασφαλείας 🔐</h3>
-      <p>Δημιουργούμε scripts που ενισχύουν την ασφάλεια των συστημάτων σας, εντοπίζοντας και αποτρέποντας πιθανές απειλές.</p>
+    <h2>Υπηρεσίες μας</h2>
+    <div class="services">
+      <div class="service-box">
+        <h3>Scripts Ασφαλείας 🔐</h3>
+        <p>Έτοιμα scripts για ενίσχυση της ασφάλειας των συστημάτων σας.</p>
+      </div>
+      <div class="service-box">
+        <h3>Αυτοματισμοί Προστασίας ⚙️</h3>
+        <p>Εργαλεία που αυτοματοποιούν την προστασία δεδομένων και monitoring.</p>
+      </div>
+      <div class="service-box">
+        <h3>Εκπαίδευση & Οδηγοί 🧑‍💻</h3>
+        <p>Tutorials και οδηγοί για χρήση scripts και βελτίωση της κυβερνοασφάλειας.</p>
+      </div>
     </div>
-    
-    <div class="service-box">
-      <h3>Αυτοματισμοί Προστασίας ⚙️</h3>
-      <p>Αναπτύσσουμε αυτοματοποιημένα εργαλεία για προστασία δεδομένων, monitoring και γρήγορη αντιμετώπιση επιθέσεων.</p>
-    </div>
-    
-    <div class="service-box">
-      <h3>Εκπαίδευση & Οδηγοί 🧑‍💻</h3>
-      <p>Παρέχουμε οδηγούς και tutorials για τη χρήση scripts που αυξάνουν την κυβερνοασφάλεια και βελτιώνουν την καθημερινή χρήση της τεχνολογίας.</p>
-    </div>
-    
-  </div>
-</section>
-
+  </section>
 
   <section>
     <h2>Επικοινωνία</h2>
+    <p>Για οποιαδήποτε ερώτηση ή συνεργασία, στείλτε email στο <a href="mailto:lenosmantis16@gmail.com">lenosmantis16@gmail.com</a></p>
     <button onclick="window.location.href='mailto:lenosmantis16@gmail.com'">Στείλε Email</button>
   </section>
 
- <section>
-  <h2>Extra Ιδέες / Προτάσεις</h2>
-  <div class="extra-ideas">
-    
-    <div class="idea-box">
-      <h4>Open-Source Scripts 💻</h4>
-      <p>Δημοσιεύουμε δωρεάν scripts ανοιχτού κώδικα για βελτίωση της ασφάλειας και τα μοιραζόμαστε με την κοινότητα.</p>
+  <section>
+    <h2>Extra Ιδέες / Προτάσεις</h2>
+    <div class="extra-ideas">
+      <div class="idea-box">
+        <h4>Open-Source Scripts 💻</h4>
+        <p>Δημοσιεύουμε δωρεάν scripts για την κοινότητα.</p>
+      </div>
+      <div class="idea-box">
+        <h4>Script Sharing 🌐</h4>
+        <p>Χώρος ανταλλαγής ιδεών και scripts ανάμεσα στους χρήστες.</p>
+      </div>
+      <div class="idea-box">
+        <h4>Custom Requests ✨</h4>
+        <p>Scripts προσαρμοσμένα στις ανάγκες του συστήματός σας.</p>
+      </div>
     </div>
-    
-    <div class="idea-box">
-      <h4>Script Sharing Community 🌐</h4>
-      <p>Χώρος όπου οι χρήστες μπορούν να προτείνουν, να δοκιμάζουν και να ανταλλάσσουν scripts για ασφάλεια.</p>
-    </div>
-    
-    <div class="idea-box">
-      <h4>Custom Script Requests ✨</h4>
-      <p>Δυνατότητα να ζητήσετε ειδικά προσαρμοσμένα scripts ανάλογα με τις ανάγκες του συστήματός σας.</p>
-    </div>
-    
-  </div>
-</section>
-
+  </section>
 </main>
 
 <footer>
-  © 2025 — Δημιουργία από το <strong>Scripting Hub</strong> | Ηθικό Hacking για Καλό Σκοπό
+  © 2025 — Δημιουργία από το <strong>CyberShield Group</strong> | Scripts & Ethical Hacking
 </footer>
 
 <script>
-  window.addEventListener('load', () => {
-    console.log("CyberShield Group Site Loaded ✅");
-  });
+// Matrix effect
+const matrix = document.getElementById("matrix");
+for (let i=0; i<70; i++) {
+  let span = document.createElement("span");
+  span.innerText = Math.random() > 0.5 ? "1" : "0";
+  span.style.left = Math.random() * 100 + "%";
+  span.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  matrix.appendChild(span);
+}
+
+console.log("Scripting Hub Loaded ✅");
 </script>
 
 </body>
