@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#00ff6a">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto Mono', monospace;}
-body{background:#000;color:#e0ffe0;overflow-x:hidden;transition:background 0.5s,color 0.5s;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Roboto Mono',monospace;}
+body{background:#000;color:#e0ffe0;overflow-x:hidden;}
 
 /* Loading screen */
 #loading{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:9999;color:#00ff6a;}
@@ -18,7 +18,7 @@ body{background:#000;color:#e0ffe0;overflow-x:hidden;transition:background 0.5s,
 
 /* Matrix background */
 .matrix{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;}
-.matrix span{position:absolute;top:-20px;color:#00ff6a;font-size:16px;animation:drop linear infinite;opacity:0.6;}
+.matrix span{position:absolute;top:-20px;color:#00ff6a;font-size:16px;opacity:0.6;animation:drop linear infinite;}
 @keyframes drop{0%{transform:translateY(-20px);}100%{transform:translateY(100vh);}}
 
 /* Smooth scroll */
@@ -26,14 +26,18 @@ html{scroll-behavior:smooth;}
 
 /* Glass panels */
 header,section,footer{background:rgba(0,0,0,0.6);backdrop-filter:blur(10px);border:1px solid rgba(0,255,106,0.3);border-radius:16px;padding:40px 20px;margin:30px auto;max-width:1000px;text-align:center;box-shadow:0 0 20px rgba(0,255,106,0.2);opacity:0;transform:translateY(20px);transition:opacity 1s ease, transform 1s ease;}
-header.visible, section.visible, footer.visible{opacity:1;transform:translateY(0);}
+header.visible, section.visible, footer.visible{opacity:1;transform:translateY(0);transition-delay:0.3s;}
 
 h1,h2{color:#00ff6a;text-shadow:0 0 12px #00ff6a;}
 header h1{font-size:3em;}
 header p{margin-top:10px;font-size:1.2em;color:#99ffcc;}
 .grid{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:20px;}
-.card{flex:1 1 280px;background:rgba(0,0,0,0.7);border:1px solid #00ff6a;padding:25px;border-radius:12px;box-shadow:0 0 20px rgba(0,255,106,0.3);transition:transform .3s, box-shadow .3s;}
-.card:hover{transform:translateY(-6px);box-shadow:0 0 30px rgba(0,255,106,0.7);}
+.card{flex:1 1 280px;background:rgba(0,0,0,0.7);border:1px solid #00ff6a;padding:25px;border-radius:12px;box-shadow:0 0 20px rgba(0,255,106,0.3);transition:transform .3s, box-shadow .3s, opacity 0.3s;}
+.card:hover{transform:translateY(-6px) scale(1.03);box-shadow:0 0 35px rgba(0,255,106,0.7);}
+.card[data-tooltip]:hover::after{
+  content: attr(data-tooltip);
+  position: absolute; background:#00ff6a;color:#000;padding:6px 10px;border-radius:6px;top:-35px;white-space:nowrap;font-size:0.8em;z-index:10;
+}
 .btn{display:inline-block;margin:10px;padding:12px 25px;border-radius:8px;font-size:1em;font-weight:bold;cursor:pointer;text-decoration:none;transition:all .3s;}
 .btn.email{background:#00ff6a;color:#000;}
 .btn.email:hover{background:#00cc55;}
@@ -48,17 +52,10 @@ footer a:hover{text-decoration:underline;}
 #terminal{background:rgba(0,0,0,0.85);border:1px solid #00ff6a;border-radius:12px;max-width:1000px;margin:40px auto;padding:20px;text-align:left;box-shadow:0 0 20px rgba(0,255,106,0.4);}
 #cmdTerminal{height:250px;overflow-y:auto;white-space:pre-wrap;font-size:14px;color:#00ff6a;font-family:'Roboto Mono',monospace;}
 .ascii-logo{color:#00ff6a;white-space:pre;font-family:'Courier New',monospace;text-shadow:0 0 8px #00ff6a;margin-bottom:10px;}
-
-/* Light/Dark toggle */
-body.light{background:#f0f0f0;color:#006600;}
-body.light header, body.light section, body.light footer{background:rgba(255,255,255,0.6);border:1px solid rgba(0,200,0,0.3);}
-body.light .matrix span{color:#00aa00;}
-body.light #cmdTerminal{color:#006600;}
 </style>
 </head>
 <body>
 
-<!-- Loading screen -->
 <div id="loading">
   <h2>Loading system...</h2>
   <div class="progress"><div class="bar" id="bar"></div></div>
@@ -72,35 +69,30 @@ body.light #cmdTerminal{color:#006600;}
   <div>
     <button class="btn lang" onclick="setLanguage('en')">EN</button>
     <button class="btn lang" onclick="setLanguage('gr')">GR</button>
-    <button class="btn lang" onclick="toggleTheme()">Light/Dark</button>
   </div>
 </header>
 
-<!-- Auto Terminal -->
 <section id="terminal">
   <div id="cmdTerminal"></div>
 </section>
 
-<!-- Sections -->
 <section id="about">
   <h2 data-en="About" data-gr="Σχετικά">About</h2>
-  <p data-en="At Scripting Hub, we create scripts for security, automation and education." data-gr="Στο Scripting Hub δημιουργούμε scripts για ασφάλεια, αυτοματισμό και εκπαίδευση.">
-    At Scripting Hub, we create scripts for security, automation and education.
-  </p>
+  <p data-en="At Scripting Hub, we create scripts for security, automation and education." data-gr="Στο Scripting Hub δημιουργούμε scripts για ασφάλεια, αυτοματισμό και εκπαίδευση.">At Scripting Hub, we create scripts for security, automation and education.</p>
 </section>
 
 <section id="services">
   <h2 data-en="Services" data-gr="Υπηρεσίες">Services</h2>
   <div class="grid">
-    <div class="card">
+    <div class="card" data-tooltip="Scan & secure your system.">
       <h3 data-en="Security Scripts 🔐" data-gr="Scripts Ασφαλείας 🔐">Security Scripts 🔐</h3>
       <p data-en="Tools for threat detection & system reinforcement." data-gr="Εργαλεία για ανίχνευση απειλών & ενίσχυση συστημάτων.">Tools for threat detection & system reinforcement.</p>
     </div>
-    <div class="card">
+    <div class="card" data-tooltip="Automate your monitoring.">
       <h3 data-en="Automation ⚙️" data-gr="Αυτοματισμοί ⚙️">Automation ⚙️</h3>
       <p data-en="Monitoring & data protection solutions." data-gr="Λύσεις monitoring & προστασίας δεδομένων.">Monitoring & data protection solutions.</p>
     </div>
-    <div class="card">
+    <div class="card" data-tooltip="Learn hacking safely.">
       <h3 data-en="Education 🧑‍💻" data-gr="Εκπαίδευση 🧑‍💻">Education 🧑‍💻</h3>
       <p data-en="Tutorials & guides for ethical hacking & cyber hygiene." data-gr="Tutorials & οδηγοί για ethical hacking & cyber hygiene.">Tutorials & guides for ethical hacking & cyber hygiene.</p>
     </div>
@@ -134,16 +126,21 @@ body.light #cmdTerminal{color:#006600;}
 </footer>
 
 <script>
-  // Matrix effect
+  // Matrix loop with delay
   const matrix=document.getElementById("matrix");
-  for(let i=0;i<120;i++){
-    let span=document.createElement("span");
-    span.innerText=Math.random()>0.5?"1":"0";
-    span.style.left=Math.random()*100+"%";
-    span.style.animationDuration=(Math.random()*3+2)+"s";
-    span.style.fontSize=(Math.random()*12+12)+"px";
-    matrix.appendChild(span);
+  function createMatrix(){
+    for(let i=0;i<150;i++){
+      let span=document.createElement("span");
+      span.innerText=Math.random()>0.5?"1":"0";
+      span.style.left=Math.random()*100+"%";
+      span.style.animationDuration=(Math.random()*3+2)+"s";
+      span.style.fontSize=(Math.random()*12+12)+"px";
+      span.style.animationDelay=(Math.random()*5)+"s";
+      matrix.appendChild(span);
+    }
   }
+  createMatrix();
+  setInterval(()=>{matrix.innerHTML=''; createMatrix();},8000);
 
   // Language support
   let currentLang = 'en';
@@ -155,7 +152,7 @@ body.light #cmdTerminal{color:#006600;}
     startBootSequence();
   }
 
-  // Boot sequence ASCII logo + typing effect
+  // Boot sequence with delays
   const bootLines = {
     en:[
       " ____             _       _     _ _ ",
@@ -188,7 +185,6 @@ body.light #cmdTerminal{color:#006600;}
       "Καλώς ήρθες, Χρήστη."
     ]
   };
-
   const terminal=document.getElementById("cmdTerminal");
   function startBootSequence(){
     terminal.innerHTML='';
@@ -201,13 +197,13 @@ body.light #cmdTerminal{color:#006600;}
         terminal.appendChild(line);
         terminal.scrollTop = terminal.scrollHeight;
         index++;
-        setTimeout(showLine,120);
+        setTimeout(showLine, 150); // delay per line
       }
     }
     showLine();
   }
 
-  // Loading screen
+  // Loading screen with progress
   const bar=document.getElementById("bar");
   let progress=0;
   let loadInterval=setInterval(()=>{
@@ -215,22 +211,17 @@ body.light #cmdTerminal{color:#006600;}
     bar.style.width=progress+"%";
     if(progress>=100){
       clearInterval(loadInterval);
-      document.getElementById("loading").style.display="none";
-      startBootSequence();
-      revealSections();
+      setTimeout(()=>{document.getElementById("loading").style.display="none"; startBootSequence(); revealSections();}, 500);
     }
-  },300);
+  },400); // slower progress for cinematic effect
 
-  // Reveal sections on scroll / after load
+  // Reveal sections with delays
   const sections=document.querySelectorAll('header, section, footer');
   function revealSections(){
-    sections.forEach(s=>s.classList.add('visible'));
+    sections.forEach((s,i)=>{
+      setTimeout(()=>{s.classList.add('visible');}, i*300); // staggered delay
+    });
   }
-
-  // Light/Dark toggle
-  function toggleTheme(){document.body.classList.toggle('light');}
-
-  // Optional: reveal on scroll
   window.addEventListener('scroll',()=>{
     sections.forEach(sec=>{
       const rect=sec.getBoundingClientRect();
