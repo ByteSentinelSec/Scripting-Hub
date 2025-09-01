@@ -6,8 +6,14 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Roboto', sans-serif; background: #000; color: #00ff6a; line-height: 1.6; overflow-x: hidden; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+
+body {
+  background: #000;
+  color: #00ff6a;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
 
 /* ===== MATRIX BACKGROUND ===== */
 .matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; overflow: hidden; z-index: -1; }
@@ -37,14 +43,12 @@ p { font-size: 1em; margin-bottom: 15px; }
 
 /* ===== SERVICES & IDEAS ===== */
 .services, .extra-ideas { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-.service-box, .idea-box {
-  background: rgba(0,0,0,0.7); padding: 30px; border-radius: 12px; border: 1px solid #00ff6a; box-shadow: 0 0 15px rgba(0,255,106,0.4); min-width: 250px; max-width: 300px; transition: transform .3s, box-shadow .3s;
-}
+.service-box, .idea-box { background: rgba(0,0,0,0.7); padding: 30px; border-radius: 12px; border: 1px solid #00ff6a; box-shadow: 0 0 15px rgba(0,255,106,0.4); min-width: 250px; max-width: 300px; transition: transform .3s, box-shadow .3s; }
 .service-box:hover, .idea-box:hover { transform: translateY(-6px); box-shadow: 0 0 25px rgba(0,255,106,0.8); cursor: pointer; }
 .service-box h3, .idea-box h4 { color: #00ff6a; margin-bottom: 10px; }
 
 /* ===== BUTTONS ===== */
-button { padding: 12px 25px; border: none; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold; transition: background .3s, transform .2s; }
+button { padding: 12px 25px; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold; transition: background .3s, transform .2s; }
 button:hover { transform: translateY(-2px); }
 button.email { background: #00ff6a; color: #000; }
 button.email:hover { background: #00cc55; }
@@ -55,8 +59,11 @@ button.discord:hover { background: #4752c4; }
 footer { background: rgba(0,0,0,0.85); color: #00ff6a; text-align: center; padding: 25px; font-size: 14px; margin-top: 50px; border-top: 1px solid #00ff6a; }
 footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width: 768px) { .services, .extra-ideas { flex-direction: column; align-items: center; } }
+/* ===== CMD INPUT ===== */
+#cmd-terminal { background: rgba(0,0,0,0.85); color:#00ff6a; padding:20px; border-radius:10px; max-width:600px; margin: 0 auto; font-family:'Courier New', monospace; height:250px; overflow-y:auto; }
+#cmd-input { width:100%; max-width:600px; margin:10px auto; display:block; padding:10px; border-radius:5px; border:1px solid #00ff6a; background:#000; color:#00ff6a; font-family:'Courier New', monospace; }
+
+@media(max-width:768px) { .services, .extra-ideas { flex-direction: column; align-items: center; } }
 </style>
 </head>
 <body>
@@ -109,6 +116,16 @@ footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
       <div class="idea-box"><h4>Custom Requests ✨</h4><p>Scripts προσαρμοσμένα στις ανάγκες του συστήματός σας.</p></div>
     </div>
   </section>
+
+  <!-- Mini CMD Terminal -->
+  <section>
+    <h2>Interactive CMD 💻</h2>
+    <div id="cmd-terminal">
+      <div>> Welcome to Scripting Hub CMD. Type <strong>help</strong> for commands.</div>
+    </div>
+    <input type="text" id="cmd-input" placeholder="Type command...">
+  </section>
+
 </main>
 
 <footer>
@@ -116,7 +133,7 @@ footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
 </footer>
 
 <script>
-// Matrix effect
+// ===== MATRIX EFFECT =====
 const matrix = document.getElementById("matrix");
 for (let i=0; i<70; i++) {
   let span = document.createElement("span");
@@ -126,7 +143,7 @@ for (let i=0; i<70; i++) {
   matrix.appendChild(span);
 }
 
-// Terminal typing effect + fake loading
+// ===== TERMINAL FAKE LOADING =====
 const terminalLines = [
   "Initializing Scripting Hub...",
   "Loading security modules...",
@@ -138,7 +155,6 @@ const progressBar = document.getElementById("progress-bar");
 const typeSound = new Audio("https://www.soundjay.com/keyboard/keyboard-1.mp3");
 typeSound.volume = 0.2;
 
-// Fake progress bar
 function fakeLoading(callback) {
   let width = 0;
   const interval = setInterval(() => {
@@ -148,7 +164,6 @@ function fakeLoading(callback) {
   }, 80);
 }
 
-// Typing effect με ήχο
 function typeLine(line, callback) {
   let i = 0;
   const cursor = document.createElement("span");
@@ -176,8 +191,30 @@ function typeLines(lines, index = 0) {
   }
 }
 
-// Εκτέλεση: πρώτα progress bar, μετά typing
 fakeLoading(() => typeLines(terminalLines));
+
+// ===== MINI CMD =====
+const cmdTerminal = document.getElementById("cmd-terminal");
+const cmdInput = document.getElementById("cmd-input");
+
+const commands = {
+  help: "Available commands: help, about, scripts, contact",
+  about: "Scripting Hub: We create scripts for computer security, automation, and education.",
+  scripts: "Available scripts: firewall-check, malware-scan, backup-automation",
+  contact: "Email: lenosmantis16@gmail.com | Discord: https://discord.gg/yU55r23MU3"
+};
+
+cmdInput.addEventListener("keydown", function(e){
+  if(e.key === "Enter"){
+    const input = cmdInput.value.trim().toLowerCase();
+    const output = commands[input] || `Command not found: ${input}`;
+    const line = document.createElement("div");
+    line.textContent = `> ${output}`;
+    cmdTerminal.appendChild(line);
+    cmdInput.value = "";
+    cmdTerminal.scrollTop = cmdTerminal.scrollHeight;
+  }
+});
 </script>
 
 </body>
