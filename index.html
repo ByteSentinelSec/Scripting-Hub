@@ -5,187 +5,126 @@
 <title>Scripting Hub 🚀</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
-
-body {
-  background: #000;
-  color: #00ff6a;
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-.matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
-.matrix span { position: absolute; top: -20px; color: #00ff6a; font-size: 16px; animation: drop 5s linear infinite; }
-@keyframes drop { 0% { top: -20px; } 100% { top: 100%; } }
-
-header { background: rgba(0,0,0,0.8); color: #00ff6a; padding: 70px 20px; text-align: center; text-shadow: 0 0 10px #00ff6a; }
-header h1 { font-size: 2.8em; font-weight: 700; }
-header p { font-size: 1.2em; margin-top: 15px; color: #77ffb0; }
-
-.terminal { background: rgba(0,0,0,0.85); border: 2px solid #00ff6a; border-radius: 10px; padding: 20px; width: 90%; max-width: 800px; margin: 40px auto; box-shadow: 0 0 20px #00ff6a; color: #00ff6a; font-family: 'Courier New', monospace; }
-.line { margin: 5px 0; }
-.cursor { display: inline-block; width: 10px; background: #00ff6a; animation: blink 1s infinite; }
-@keyframes blink { 50% { background: transparent; } }
-
-.progress-container { width: 90%; max-width: 800px; height: 20px; background: rgba(0,0,0,0.7); border: 1px solid #00ff6a; border-radius: 10px; margin: 20px auto; box-shadow: 0 0 15px rgba(0,255,106,0.4); }
-.progress-bar { width: 0%; height: 100%; background: #00ff6a; border-radius: 10px; transition: width 0.1s linear; }
-
-main { padding: 50px 20px; max-width: 1200px; margin: 0 auto; color: #e0ffe0; }
-section { margin: 60px 0; text-align: center; }
-h2 { font-size: 2em; margin-bottom: 20px; color: #00ff6a; text-shadow: 0 0 8px #00ff6a; }
-p { font-size: 1em; margin-bottom: 15px; }
-
-.services, .extra-ideas { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
-.service-box, .idea-box { background: rgba(0,0,0,0.7); padding: 30px; border-radius: 12px; border: 1px solid #00ff6a; box-shadow: 0 0 15px rgba(0,255,106,0.4); min-width: 250px; max-width: 300px; transition: transform .3s, box-shadow .3s; }
-.service-box:hover, .idea-box:hover { transform: translateY(-6px); box-shadow: 0 0 25px rgba(0,255,106,0.8); cursor: pointer; }
-.service-box h3, .idea-box h4 { color: #00ff6a; margin-bottom: 10px; }
-
-button { padding: 12px 25px; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold; transition: background .3s, transform .2s; }
-button:hover { transform: translateY(-2px); }
-button.email { background: #00ff6a; color: #000; }
-button.email:hover { background: #00cc55; }
-button.discord { background: #5865F2; color: #fff; }
-button.discord:hover { background: #4752c4; }
-
-footer { background: rgba(0,0,0,0.85); color: #00ff6a; text-align: center; padding: 25px; font-size: 14px; margin-top: 50px; border-top: 1px solid #00ff6a; }
-footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
-
-#cmd-terminal { background: rgba(0,0,0,0.85); color:#00ff6a; padding:20px; border-radius:10px; max-width:600px; margin: 0 auto; font-family:'Courier New', monospace; height:250px; overflow-y:auto; }
-#cmd-input { width:100%; max-width:600px; margin:10px auto; display:block; padding:10px; border-radius:5px; border:1px solid #00ff6a; background:#000; color:#00ff6a; font-family:'Courier New', monospace; }
-
-@media(max-width:768px) { .services, .extra-ideas { flex-direction: column; align-items: center; } }
+body { background: #000; color: #00ff6a; line-height: 1.6; overflow-x: hidden; }
+.matrix { position: fixed; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1; }
+.matrix span { position:absolute; top:-20px; color:#00ff6a; font-size:16px; animation: drop 5s linear infinite; }
+@keyframes drop {0% {top:-20px;} 100% {top:100%;}}
+header { background: rgba(0,0,0,0.8); color:#00ff6a; padding:70px 20px; text-align:center; text-shadow: 0 0 10px #00ff6a;}
+header h1{font-size:2.8em; font-weight:700;}
+header p{font-size:1.2em; margin-top:15px; color:#77ffb0;}
+.terminal{background:rgba(0,0,0,0.85); border:2px solid #00ff6a; border-radius:10px; padding:20px; width:90%; max-width:800px; margin:40px auto; box-shadow:0 0 20px #00ff6a; color:#00ff6a; font-family:'Courier New', monospace;}
+.line{margin:5px 0;}
+.cursor{display:inline-block; width:10px; background:#00ff6a; animation:blink 1s infinite;}
+@keyframes blink{50%{background:transparent;}}
+main{padding:50px 20px; max-width:1200px; margin:0 auto; color:#e0ffe0;}
+section{margin:60px 0; text-align:center;}
+h2{font-size:2em; margin-bottom:20px; color:#00ff6a; text-shadow:0 0 8px #00ff6a;}
+p{font-size:1em; margin-bottom:15px;}
+.services, .extra-ideas{display:flex; flex-wrap:wrap; justify-content:center; gap:20px;}
+.service-box, .idea-box{background:rgba(0,0,0,0.7); padding:30px; border-radius:12px; border:1px solid #00ff6a; box-shadow:0 0 15px rgba(0,255,106,0.4); min-width:250px; max-width:300px; transition:transform .3s,box-shadow .3s;}
+.service-box:hover,.idea-box:hover{transform:translateY(-6px); box-shadow:0 0 25px rgba(0,255,106,0.8); cursor:pointer;}
+.service-box h3,.idea-box h4{color:#00ff6a; margin-bottom:10px;}
+button{padding:12px 25px; border-radius:8px; font-size:1em; cursor:pointer; font-weight:bold; transition:background .3s, transform .2s;}
+button:hover{transform:translateY(-2px);}
+button.email{background:#00ff6a; color:#000;}
+button.email:hover{background:#00cc55;}
+button.discord{background:#5865F2; color:#fff;}
+button.discord:hover{background:#4752c4;}
+footer{background:rgba(0,0,0,0.85); color:#00ff6a; text-align:center; padding:25px; font-size:14px; margin-top:50px; border-top:1px solid #00ff6a;}
+footer a{color:#77ffb0;} footer a:hover{text-decoration:underline;}
+#cmd-terminal{background:rgba(0,0,0,0.85); color:#00ff6a; padding:20px; border-radius:10px; max-width:600px; margin:0 auto; font-family:'Courier New', monospace; height:250px; overflow-y:auto;}
+#cmd-input{width:100%; max-width:600px; margin:10px auto; display:block; padding:10px; border-radius:5px; border:1px solid #00ff6a; background:#000; color:#00ff6a; font-family:'Courier New', monospace;}
+@media(max-width:768px){.services,.extra-ideas{flex-direction:column; align-items:center;}}
 </style>
 </head>
 <body>
-
 <div class="matrix" id="matrix"></div>
-
 <header>
-  <h1>Scripting Hub 🚀</h1>
-  <p>Cybersecurity Scripts • Ethical Hacking • Automation</p>
+<h1>Scripting Hub 🚀</h1>
+<p>Cybersecurity Scripts • Ethical Hacking • Automation</p>
 </header>
-
-<div class="progress-container">
-  <div class="progress-bar" id="progress-bar"></div>
-</div>
-
 <div class="terminal" id="terminal"></div>
-
 <main>
-  <section>
-    <h2>Για εμάς</h2>
-    <p>Στο <strong>Scripting Hub</strong> δημιουργούμε scripts για την προστασία και την ασφάλεια των υπολογιστών. Παρέχουμε λύσεις αυτοματισμού, εργαλεία ανίχνευσης απειλών και εκπαίδευση για πιο ασφαλή χρήση της τεχνολογίας.</p>
-  </section>
-
-  <section>
-    <h2>Υπηρεσίες μας</h2>
-    <div class="services">
-      <div class="service-box"><h3>Scripts Ασφαλείας 🔐</h3><p>Έτοιμα scripts για ενίσχυση της ασφάλειας των συστημάτων σας.</p></div>
-      <div class="service-box"><h3>Αυτοματισμοί Προστασίας ⚙️</h3><p>Εργαλεία που αυτοματοποιούν την προστασία δεδομένων και monitoring.</p></div>
-      <div class="service-box"><h3>Εκπαίδευση & Οδηγοί 🧑‍💻</h3><p>Tutorials και οδηγοί για χρήση scripts και βελτίωση της κυβερνοασφάλειας.</p></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Επικοινωνία</h2>
-    <p>Για οποιαδήποτε ερώτηση ή συνεργασία:</p>
-    <div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
-      <button class="email" onclick="window.location.href='mailto:lenosmantis16@gmail.com'">Στείλε Email</button>
-      <button class="discord" onclick="window.location.href='https://discord.gg/yU55r23MU3'">Join Discord</button>
-    </div>
-  </section>
-
-  <section>
-    <h2>Extra Ιδέες / Προτάσεις</h2>
-    <div class="extra-ideas">
-      <div class="idea-box"><h4>Open-Source Scripts 💻</h4><p>Δημοσιεύουμε δωρεάν scripts για την κοινότητα.</p></div>
-      <div class="idea-box"><h4>Script Sharing 🌐</h4><p>Χώρος ανταλλαγής ιδεών και scripts ανάμεσα στους χρήστες.</p></div>
-      <div class="idea-box"><h4>Custom Requests ✨</h4><p>Scripts προσαρμοσμένα στις ανάγκες του συστήματός σας.</p></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Interactive CMD 💻</h2>
-    <div id="cmd-terminal">
-      <div>> Welcome to Scripting Hub CMD. Type <strong>help</strong> for commands.</div>
-    </div>
-    <input type="text" id="cmd-input" placeholder="Type command...">
-  </section>
-
+<section>
+<h2>Για εμάς</h2>
+<p>Στο <strong>Scripting Hub</strong> δημιουργούμε scripts για την προστασία και την ασφάλεια των υπολογιστών. Παρέχουμε λύσεις αυτοματισμού, εργαλεία ανίχνευσης απειλών και εκπαίδευση για πιο ασφαλή χρήση της τεχνολογίας.</p>
+</section>
+<section>
+<h2>Υπηρεσίες μας</h2>
+<div class="services">
+<div class="service-box"><h3>Scripts Ασφαλείας 🔐</h3><p>Έτοιμα scripts για ενίσχυση της ασφάλειας των συστημάτων σας.</p></div>
+<div class="service-box"><h3>Αυτοματισμοί Προστασίας ⚙️</h3><p>Εργαλεία που αυτοματοποιούν την προστασία δεδομένων και monitoring.</p></div>
+<div class="service-box"><h3>Εκπαίδευση & Οδηγοί 🧑‍💻</h3><p>Tutorials και οδηγοί για χρήση scripts και βελτίωση της κυβερνοασφάλειας.</p></div>
+</div>
+</section>
+<section>
+<h2>Επικοινωνία</h2>
+<div style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap;">
+<button class="email" onclick="window.location.href='mailto:lenosmantis16@gmail.com'">Στείλε Email</button>
+<button class="discord" onclick="window.location.href='https://discord.gg/yU55r23MU3'">Join Discord</button>
+</div>
+</section>
+<section>
+<h2>Extra Ιδέες / Προτάσεις</h2>
+<div class="extra-ideas">
+<div class="idea-box"><h4>Open-Source Scripts 💻</h4><p>Δημοσιεύουμε δωρεάν scripts για την κοινότητα.</p></div>
+<div class="idea-box"><h4>Script Sharing 🌐</h4><p>Χώρος ανταλλαγής ιδεών και scripts ανάμεσα στους χρήστες.</p></div>
+<div class="idea-box"><h4>Custom Requests ✨</h4><p>Scripts προσαρμοσμένα στις ανάγκες του συστήματός σας.</p></div>
+</div>
+</section>
+<section>
+<h2>Interactive CMD 💻</h2>
+<div id="cmd-terminal"><div>> Welcome to Scripting Hub CMD. Type <strong>help</strong> for commands.</div></div>
+<input type="text" id="cmd-input" placeholder="Type command...">
+</section>
 </main>
-
-<footer>
-  © 2025 — Δημιουργία από το <strong>CyberShield Group</strong> | Scripts & Ethical Hacking
-</footer>
-
+<footer>© 2025 — Δημιουργία από το <strong>CyberShield Group</strong> | Scripts & Ethical Hacking</footer>
 <script>
 // ===== MATRIX =====
-const matrix = document.getElementById("matrix");
-for (let i=0;i<70;i++){
-  let span=document.createElement("span");
-  span.innerText=Math.random()>0.5?"1":"0";
-  span.style.left=Math.random()*100+"%";
-  span.style.animationDuration=(Math.random()*3+2)+"s";
-  matrix.appendChild(span);
+const matrix=document.getElementById("matrix");
+for(let i=0;i<70;i++){let span=document.createElement("span"); span.innerText=Math.random()>0.5?"1":"0"; span.style.left=Math.random()*100+"%"; span.style.animationDuration=(Math.random()*3+2)+"s"; matrix.appendChild(span);}
+
+// ===== TERMINAL =====
+const terminal=document.getElementById("terminal");
+const terminalLines=["Initializing Scripting Hub...","Loading security modules...","Scripts ready: OK","Welcome, user."];
+let idx=0;
+function typeLines(lines,i=0){if(i<lines.length){let lineDiv=document.createElement("div"); lineDiv.className="line"; terminal.appendChild(lineDiv); let j=0; let charInterval=setInterval(()=>{if(j<lines[i].length){lineDiv.appendChild(document.createTextNode(lines[i][j])); j++;}else{clearInterval(charInterval); setTimeout(()=>typeLines(lines,i+1),300);}},60);} }
+typeLines(terminalLines);
+
+// ===== MINI CMD =====
+const cmdTerminal=document.getElementById("cmd-terminal");
+const cmdInput=document.getElementById("cmd-input");
+let fs = {"home":{}};
+let cwd = ["home"];
+
+function getDir(pathArray){let dir=fs; for(let p of pathArray) dir=dir[p]; return dir;}
+function pathArray(path){if(path.startsWith("/")) return path.slice(1).split("/").filter(x=>x); else return cwd.concat(path.split("/").filter(x=>x));}
+function basename(path){let parts=path.split("/"); return parts[parts.length-1];}
+function dirname(path){let parts=path.split("/"); parts.pop(); return parts.join("/");}
+
+cmdInput.addEventListener("keydown",function(e){
+if(e.key==="Enter"){
+let input=cmdInput.value.trim(); cmdInput.value=""; if(!input) return;
+let args=input.split(" "); let cmd=args.shift().toLowerCase(); let output="";
+switch(cmd){
+case "help": output="Available commands: help, about, scripts, contact, ls, pwd, mkdir, touch, rm, mv"; break;
+case "about": output="Scripting Hub: We create scripts for computer security, automation, and education."; break;
+case "scripts": output="Available scripts: firewall-check, malware-scan, backup-automation"; break;
+case "contact": output="Email: lenosmantis16@gmail.com | Discord: https://discord.gg/yU55r23MU3"; break;
+case "pwd": output="/"+cwd.join("/"); break;
+case "ls": let dir=getDir(cwd); output=Object.keys(dir).join("  ")||"(empty)"; break;
+case "mkdir": if(!args[0]){output="Usage: mkdir <foldername>";} else{let dir=getDir(cwd); if(dir[args[0]]) output="Folder exists"; else dir[args[0]]={}; output="";} break;
+case "touch": if(!args[0]){output="Usage: touch <filename>";} else{let dir=getDir(cwd); dir[args[0]]="file"; output="";} break;
+case "rm": if(!args[0]){output="Usage: rm <filename/foldername>";} else{let dir=getDir(cwd); if(!dir[args[0]]) output="No such file/folder"; else delete dir[args[0]]; output="";} break;
+case "mv": if(!args[0]||!args[1]){output="Usage: mv <source> <destination>";} else{let dir=getDir(cwd); if(!dir[args[0]]){output="Source does not exist";}else{dir[args[1]]=dir[args[0]]; delete dir[args[0]]; output="";}} break;
+default: output="Command not found: "+cmd;
 }
-
-// ===== TERMINAL FAKE LOADING =====
-const terminalLines = ["Initializing Scripting Hub...","Loading security modules...","Scripts ready: OK","Welcome, user."];
-const terminal = document.getElementById("terminal");
-const progressBar = document.getElementById("progress-bar");
-const typeSound = new Audio("https://www.soundjay.com/keyboard/keyboard-1.mp3");
-typeSound.volume = 0.2;
-
-function fakeLoading(callback){
-  let width=0;
-  const interval=setInterval(()=>{
-    width+=Math.random()*3;
-    if(width>=100){ width=100; clearInterval(interval); callback(); }
-    progressBar.style.width=width+"%";
-  },80);
+let line=document.createElement("div"); line.innerHTML="> "+input; cmdTerminal.appendChild(line);
+if(output){let outLine=document.createElement("div"); outLine.innerText=output; cmdTerminal.appendChild(outLine);}
+cmdTerminal.scrollTop=cmdTerminal.scrollHeight;
 }
-
-function typeLine(line,callback){
-  let i=0;
-  const cursor=document.createElement("span"); cursor.className="cursor";
-  const lineDiv=document.createElement("div"); lineDiv.className="line";
-  terminal.appendChild(lineDiv); lineDiv.appendChild(cursor);
-  function typeChar(){
-    if(i<line.length){
-      lineDiv.insertBefore(document.createTextNode(line[i]),cursor); i++;
-      typeSound.currentTime=0; typeSound.play();
-      setTimeout(typeChar,60);
-    }else callback();
-  }
-  typeChar();
-}
-
-function typeLines(lines,index=0){
-  if(index<lines.length){
-    typeLine(lines[index],()=>setTimeout(()=>typeLines(lines,index+1),400));
-  }
-}
-
-fakeLoading(()=>typeLines(terminalLines));
-
-// ===== MINI CMD WITH FILESYSTEM =====
-const cmdTerminal = document.getElementById("cmd-terminal");
-const cmdInput = document.getElementById("cmd-input");
-
-let fileSystem = { "home": {} };
-let currentPath = ["home"];
-
-function getCurrentDir(){
-  let dir = fileSystem;
-  for(let folder of currentPath) dir=dir[folder];
-  return dir;
-}
-
-function resolvePath(path){
-  if(path.startsWith("/")) return path.slice(1).split("/").filter(x=>x);
-  return currentPath.concat(path.split("/").filter(x=>x));
-}
-
-const commands = {
-  help: () => "Available commands: help, about, scripts, contact, ls, pwd, mkdir, touch, rm, mv
+});
+</script>
+</body>
+</html>
