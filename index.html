@@ -15,39 +15,32 @@ body {
   overflow-x: hidden;
 }
 
-/* ===== MATRIX BACKGROUND ===== */
-.matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; overflow: hidden; z-index: -1; }
+.matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; }
 .matrix span { position: absolute; top: -20px; color: #00ff6a; font-size: 16px; animation: drop 5s linear infinite; }
 @keyframes drop { 0% { top: -20px; } 100% { top: 100%; } }
 
-/* ===== HEADER ===== */
 header { background: rgba(0,0,0,0.8); color: #00ff6a; padding: 70px 20px; text-align: center; text-shadow: 0 0 10px #00ff6a; }
 header h1 { font-size: 2.8em; font-weight: 700; }
 header p { font-size: 1.2em; margin-top: 15px; color: #77ffb0; }
 
-/* ===== TERMINAL BOX ===== */
 .terminal { background: rgba(0,0,0,0.85); border: 2px solid #00ff6a; border-radius: 10px; padding: 20px; width: 90%; max-width: 800px; margin: 40px auto; box-shadow: 0 0 20px #00ff6a; color: #00ff6a; font-family: 'Courier New', monospace; }
 .line { margin: 5px 0; }
 .cursor { display: inline-block; width: 10px; background: #00ff6a; animation: blink 1s infinite; }
 @keyframes blink { 50% { background: transparent; } }
 
-/* ===== PROGRESS BAR ===== */
 .progress-container { width: 90%; max-width: 800px; height: 20px; background: rgba(0,0,0,0.7); border: 1px solid #00ff6a; border-radius: 10px; margin: 20px auto; box-shadow: 0 0 15px rgba(0,255,106,0.4); }
 .progress-bar { width: 0%; height: 100%; background: #00ff6a; border-radius: 10px; transition: width 0.1s linear; }
 
-/* ===== MAIN CONTENT ===== */
 main { padding: 50px 20px; max-width: 1200px; margin: 0 auto; color: #e0ffe0; }
 section { margin: 60px 0; text-align: center; }
 h2 { font-size: 2em; margin-bottom: 20px; color: #00ff6a; text-shadow: 0 0 8px #00ff6a; }
 p { font-size: 1em; margin-bottom: 15px; }
 
-/* ===== SERVICES & IDEAS ===== */
 .services, .extra-ideas { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
 .service-box, .idea-box { background: rgba(0,0,0,0.7); padding: 30px; border-radius: 12px; border: 1px solid #00ff6a; box-shadow: 0 0 15px rgba(0,255,106,0.4); min-width: 250px; max-width: 300px; transition: transform .3s, box-shadow .3s; }
 .service-box:hover, .idea-box:hover { transform: translateY(-6px); box-shadow: 0 0 25px rgba(0,255,106,0.8); cursor: pointer; }
 .service-box h3, .idea-box h4 { color: #00ff6a; margin-bottom: 10px; }
 
-/* ===== BUTTONS ===== */
 button { padding: 12px 25px; border-radius: 8px; font-size: 1em; cursor: pointer; font-weight: bold; transition: background .3s, transform .2s; }
 button:hover { transform: translateY(-2px); }
 button.email { background: #00ff6a; color: #000; }
@@ -55,11 +48,9 @@ button.email:hover { background: #00cc55; }
 button.discord { background: #5865F2; color: #fff; }
 button.discord:hover { background: #4752c4; }
 
-/* ===== FOOTER ===== */
 footer { background: rgba(0,0,0,0.85); color: #00ff6a; text-align: center; padding: 25px; font-size: 14px; margin-top: 50px; border-top: 1px solid #00ff6a; }
 footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
 
-/* ===== CMD INPUT ===== */
 #cmd-terminal { background: rgba(0,0,0,0.85); color:#00ff6a; padding:20px; border-radius:10px; max-width:600px; margin: 0 auto; font-family:'Courier New', monospace; height:250px; overflow-y:auto; }
 #cmd-input { width:100%; max-width:600px; margin:10px auto; display:block; padding:10px; border-radius:5px; border:1px solid #00ff6a; background:#000; color:#00ff6a; font-family:'Courier New', monospace; }
 
@@ -68,7 +59,6 @@ footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
 </head>
 <body>
 
-<!-- Matrix Background -->
 <div class="matrix" id="matrix"></div>
 
 <header>
@@ -76,12 +66,10 @@ footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
   <p>Cybersecurity Scripts • Ethical Hacking • Automation</p>
 </header>
 
-<!-- Fake Loading Progress -->
 <div class="progress-container">
   <div class="progress-bar" id="progress-bar"></div>
 </div>
 
-<!-- Terminal Box -->
 <div class="terminal" id="terminal"></div>
 
 <main>
@@ -117,7 +105,6 @@ footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
     </div>
   </section>
 
-  <!-- Mini CMD Terminal -->
   <section>
     <h2>Interactive CMD 💻</h2>
     <div id="cmd-terminal">
@@ -133,89 +120,72 @@ footer a { color: #77ffb0; } footer a:hover { text-decoration: underline; }
 </footer>
 
 <script>
-// ===== MATRIX EFFECT =====
+// ===== MATRIX =====
 const matrix = document.getElementById("matrix");
-for (let i=0; i<70; i++) {
-  let span = document.createElement("span");
-  span.innerText = Math.random() > 0.5 ? "1" : "0";
-  span.style.left = Math.random() * 100 + "%";
-  span.style.animationDuration = (Math.random() * 3 + 2) + "s";
+for (let i=0;i<70;i++){
+  let span=document.createElement("span");
+  span.innerText=Math.random()>0.5?"1":"0";
+  span.style.left=Math.random()*100+"%";
+  span.style.animationDuration=(Math.random()*3+2)+"s";
   matrix.appendChild(span);
 }
 
 // ===== TERMINAL FAKE LOADING =====
-const terminalLines = [
-  "Initializing Scripting Hub...",
-  "Loading security modules...",
-  "Scripts ready: OK",
-  "Welcome, user."
-];
+const terminalLines = ["Initializing Scripting Hub...","Loading security modules...","Scripts ready: OK","Welcome, user."];
 const terminal = document.getElementById("terminal");
 const progressBar = document.getElementById("progress-bar");
 const typeSound = new Audio("https://www.soundjay.com/keyboard/keyboard-1.mp3");
 typeSound.volume = 0.2;
 
-function fakeLoading(callback) {
-  let width = 0;
-  const interval = setInterval(() => {
-    width += Math.random() * 3;
-    if (width >= 100) { width = 100; clearInterval(interval); callback(); }
-    progressBar.style.width = width + "%";
-  }, 80);
+function fakeLoading(callback){
+  let width=0;
+  const interval=setInterval(()=>{
+    width+=Math.random()*3;
+    if(width>=100){ width=100; clearInterval(interval); callback(); }
+    progressBar.style.width=width+"%";
+  },80);
 }
 
-function typeLine(line, callback) {
-  let i = 0;
-  const cursor = document.createElement("span");
-  cursor.className = "cursor";
-  const lineDiv = document.createElement("div");
-  lineDiv.className = "line";
-  terminal.appendChild(lineDiv);
-  lineDiv.appendChild(cursor);
-
-  function typeChar() {
-    if (i < line.length) {
-      lineDiv.insertBefore(document.createTextNode(line[i]), cursor);
-      i++;
-      typeSound.currentTime = 0;
-      typeSound.play();
-      setTimeout(typeChar, 60);
-    } else callback();
+function typeLine(line,callback){
+  let i=0;
+  const cursor=document.createElement("span"); cursor.className="cursor";
+  const lineDiv=document.createElement("div"); lineDiv.className="line";
+  terminal.appendChild(lineDiv); lineDiv.appendChild(cursor);
+  function typeChar(){
+    if(i<line.length){
+      lineDiv.insertBefore(document.createTextNode(line[i]),cursor); i++;
+      typeSound.currentTime=0; typeSound.play();
+      setTimeout(typeChar,60);
+    }else callback();
   }
   typeChar();
 }
 
-function typeLines(lines, index = 0) {
-  if (index < lines.length) {
-    typeLine(lines[index], () => setTimeout(() => typeLines(lines, index + 1), 400));
+function typeLines(lines,index=0){
+  if(index<lines.length){
+    typeLine(lines[index],()=>setTimeout(()=>typeLines(lines,index+1),400));
   }
 }
 
-fakeLoading(() => typeLines(terminalLines));
+fakeLoading(()=>typeLines(terminalLines));
 
-// ===== MINI CMD =====
+// ===== MINI CMD WITH FILESYSTEM =====
 const cmdTerminal = document.getElementById("cmd-terminal");
 const cmdInput = document.getElementById("cmd-input");
 
+let fileSystem = { "home": {} };
+let currentPath = ["home"];
+
+function getCurrentDir(){
+  let dir = fileSystem;
+  for(let folder of currentPath) dir=dir[folder];
+  return dir;
+}
+
+function resolvePath(path){
+  if(path.startsWith("/")) return path.slice(1).split("/").filter(x=>x);
+  return currentPath.concat(path.split("/").filter(x=>x));
+}
+
 const commands = {
-  help: "Available commands: help, about, scripts, contact",
-  about: "Scripting Hub: We create scripts for computer security, automation, and education.",
-  scripts: "Available scripts: firewall-check, malware-scan, backup-automation",
-  contact: "Email: lenosmantis16@gmail.com | Discord: https://discord.gg/yU55r23MU3"
-};
-
-cmdInput.addEventListener("keydown", function(e){
-  if(e.key === "Enter"){
-    const input = cmdInput.value.trim().toLowerCase();
-    const output = commands[input] || `Command not found: ${input}`;
-    const line = document.createElement("div");
-    line.textContent = `> ${output}`;
-    cmdTerminal.appendChild(line);
-    cmdInput.value = "";
-    cmdTerminal.scrollTop = cmdTerminal.scrollHeight;
-  }
-});
-</script>
-
-</body>
-</html>
+  help: () => "Available commands: help, about, scripts, contact, ls, pwd, mkdir, touch, rm, mv
