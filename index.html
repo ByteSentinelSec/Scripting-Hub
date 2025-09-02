@@ -14,8 +14,8 @@ body {background:#000; color:#0f0; overflow-x:hidden;}
   background:#000; color:#0f0; display:flex; flex-direction:column;
   align-items:center; justify-content:center; z-index:9999; text-align:center;
 }
-#loading p {margin:6px 0; font-size:1.2em;}
-.progress {width:60%; height:12px; border:1px solid #0f0; margin-top:20px;}
+#loading p {margin:8px 0; font-size:1.5em;}
+.progress {width:60%; height:14px; border:1px solid #0f0; margin-top:30px;}
 .bar {width:0; height:100%; background:#0f0; transition:width 0.3s;}
 
 /* Matrix Background */
@@ -29,22 +29,22 @@ body {background:#000; color:#0f0; overflow-x:hidden;}
 /* Sections */
 header,section,footer {position:relative; z-index:1; text-align:center; padding:100px 20px 60px; opacity:0; transform:translateY(40px); transition:all 0.8s ease;}
 .visible{opacity:1; transform:translateY(0);}
-header h1 {font-size:2.6em; text-shadow:0 0 15px #0f0;}
-header p {margin-top:10px; color:#9f9;}
+header h1 {font-size:3em; text-shadow:0 0 25px #0f0;}
+header p {margin-top:15px; color:#9f9; font-size:1.3em;}
 
 /* Services */
 .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px; margin-top:30px;}
-.card{background:rgba(0,255,0,0.05); border:1px solid #0f0; border-radius:10px; padding:30px 20px; font-size:1.2em; display:flex; align-items:center; justify-content:center; height:100px; transition:0.3s;}
-.card:hover{background:rgba(0,255,0,0.15); box-shadow:0 0 15px #0f0; transform:translateY(-4px);}
+.card{background:rgba(0,255,0,0.05); border:1px solid #0f0; border-radius:10px; padding:30px 20px; font-size:1.3em; display:flex; align-items:center; justify-content:center; height:110px; transition:0.3s;}
+.card:hover{background:rgba(0,255,0,0.15); box-shadow:0 0 20px #0f0; transform:translateY(-5px);}
 
 /* Terminal */
-.terminal {background:#010; border:1px solid #0f0; border-radius:8px; max-width:600px; margin:40px auto; padding:20px; text-align:left; color:#0f0; font-size:14px; line-height:1.4em; min-height:160px;}
+.terminal {background:#010; border:1px solid #0f0; border-radius:10px; max-width:600px; margin:40px auto; padding:25px; text-align:left; color:#0f0; font-size:15px; line-height:1.6em; min-height:180px;}
 
 /* Donate */
 .donate{margin:30px auto; padding:20px; background:#111; border:1px solid #0f0; border-radius:12px; display:inline-block;}
-.paypal-btn {display:flex; align-items:center; justify-content:center; width:100px; height:50px; margin:auto; padding:0; background:#111; border:2px solid #0f0; border-radius:12px; text-decoration:none; transition:0.3s; box-shadow:0 0 8px #0f0;}
-.paypal-btn:hover {background:#0f0; box-shadow:0 0 20px #0f0, 0 0 40px #0f0 inset; transform:translateY(-2px);}
-.paypal-icon {width:50px; height:auto; filter:invert(1) brightness(1.2);}
+.paypal-btn {display:flex; align-items:center; justify-content:center; width:80px; height:80px; margin:auto; padding:0; background:#111; border:2px solid #0f0; border-radius:12px; text-decoration:none; transition:0.3s; box-shadow:0 0 10px #0f0;}
+.paypal-btn:hover {background:#0f0; box-shadow:0 0 25px #0f0, 0 0 50px #0f0 inset; transform:translateY(-3px);}
+.paypal-icon {width:60px; height:auto; filter:invert(1) brightness(1.2);}
 
 /* Contact Buttons */
 .btns{display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:20px;}
@@ -126,7 +126,7 @@ function createMatrix(){
     let span=document.createElement("span");
     span.innerText=Math.random()>0.5?"1":"0";
     span.style.left=Math.random()*100+"%";
-    span.style.fontSize=(Math.random()*16+12)+"px";
+    span.style.fontSize=(Math.random()*18+14)+"px";
     span.style.animationDuration=(Math.random()*3+3)+"s";
     matrix.appendChild(span);
   }
@@ -146,9 +146,26 @@ function createParticles(){
 }
 createParticles();
 
-// Loading Screen
+// Loading Screen with delays
 const bar=document.querySelector('.bar');
+const loadingTexts = [
+  "> Booting system...",
+  "> Initializing security modules...",
+  "> Connecting to server..."
+];
 let progress=0;
+let loadIndex = 0;
+
+function showLoadingText(){
+  if(loadIndex<loadingTexts.length){
+    document.querySelector('#loading p:nth-child('+(loadIndex+1)+')').textContent = loadingTexts[loadIndex];
+    loadIndex++;
+    setTimeout(showLoadingText, 1200);
+  }
+}
+
+showLoadingText();
+
 let load=setInterval(()=>{
   progress+=5; bar.style.width=progress+"%";
   if(progress>=100){
@@ -157,7 +174,7 @@ let load=setInterval(()=>{
       document.getElementById("loading").style.display="none";
       revealSections();
       startBootSequence();
-    },800);
+    },1000);
   }
 },200);
 
