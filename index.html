@@ -3,105 +3,118 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scripting Hub 🚀</title>
+<title>Scripting Hub Portal</title>
 <style>
-/* Global */
-* {margin:0; padding:0; box-sizing:border-box; font-family:"Courier New",monospace;}
-body {background:#000; color:#0f0; overflow-x:hidden;}
+/* Reset & Base */
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Courier New",monospace;}
+body{background:#000;color:#0f0;overflow-x:hidden;}
 
 /* Loading Screen */
-#loading {
-  position:fixed; top:0; left:0; width:100%; height:100%;
-  background:#000; color:#0f0; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; z-index:9999; text-align:center;
-}
-#loading p {margin:10px 0; font-size:1.6em; opacity:0; transition:opacity 0.6s;}
-.progress {width:60%; height:14px; border:1px solid #0f0; margin-top:30px;}
-.bar {width:0; height:100%; background:#0f0; transition:width 0.3s;}
+#loading{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#0f0;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;text-align:center;}
+#loading p{margin:10px 0;font-size:1.4em;opacity:0;transition:opacity 0.6s;}
+.progress{width:60%;height:14px;border:1px solid #0f0;margin-top:30px;}
+.bar{width:0;height:100%;background:#0f0;transition:width 0.3s;}
 
-/* Matrix Background */
-#matrix {position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;}
-#matrix span {position:absolute; top:-20px; color:#0f0; font-size:14px; opacity:0.7; animation:fall linear infinite;}
-@keyframes fall {to {transform:translateY(110vh);}}
-#particles {position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;}
-#particles div {position:absolute; width:2px; height:2px; background:#0f0; opacity:0.5; animation:float 8s infinite linear;}
-@keyframes float {from{transform:translateY(0);} to{transform:translateY(-100vh);}}
+/* Matrix & FX */
+#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+#matrix span{position:absolute;top:-20px;color:#0f0;font-size:14px;opacity:0.6;animation:fall linear infinite;}
+@keyframes fall{to{transform:translateY(110vh);}}
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+#particles div{position:absolute;width:2px;height:2px;background:#0f0;opacity:0.5;animation:float 8s infinite linear;}
+@keyframes float{from{transform:translateY(0);}to{transform:translateY(-100vh);}}
+.scanline{position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(to bottom,rgba(0,255,0,0.05) 0px,rgba(0,255,0,0.05) 2px,transparent 2px,transparent 4px);z-index:2;pointer-events:none;mix-blend-mode:overlay;}
 
 /* Sections */
-header,section,footer {position:relative; z-index:1; text-align:center; padding:100px 20px 60px; opacity:0; transform:translateY(40px); transition:all 0.8s ease;}
-.visible{opacity:1; transform:translateY(0);}
-header h1 {font-size:3em; text-shadow:0 0 25px #0f0;}
-header p {margin-top:15px; color:#9f9; font-size:1.3em;}
+header,section,footer{position:relative;z-index:1;text-align:center;padding:100px 20px 60px;opacity:0;transform:translateY(40px);transition:all 0.8s ease;}
+.visible{opacity:1;transform:translateY(0);}
+header h1{font-size:3em;text-shadow:0 0 25px #0f0;}
+header p{margin-top:15px;color:#9f9;font-size:1.2em;}
 
-/* Services */
-.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px; margin-top:30px;}
-.card{background:rgba(0,255,0,0.05); border:1px solid #0f0; border-radius:12px; padding:30px 20px; font-size:1.3em; display:flex; align-items:center; justify-content:center; height:110px; transition:0.4s; cursor:pointer;}
-.card:hover{background:rgba(0,255,0,0.2); box-shadow:0 0 25px #0f0; transform:translateY(-6px);}
+/* Grid Cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:30px;margin-top:30px;}
+.card{background:rgba(0,255,0,0.05);border:1px solid #0f0;border-radius:12px;padding:30px 20px;font-size:1.2em;display:flex;align-items:center;justify-content:center;height:110px;transition:0.4s;cursor:pointer;}
+.card:hover{background:rgba(0,255,0,0.2);box-shadow:0 0 25px #0f0;transform:translateY(-6px);}
 
 /* Terminal */
-.terminal {background:#010; border:1px solid #0f0; border-radius:12px; max-width:650px; margin:40px auto; padding:25px; text-align:left; color:#0f0; font-size:15px; line-height:1.6em; min-height:200px; box-shadow:0 0 20px #0f0;}
+.terminal{background:#010;border:1px solid #0f0;border-radius:12px;max-width:750px;margin:40px auto;padding:25px;text-align:left;color:#0f0;font-size:15px;line-height:1.6em;min-height:200px;box-shadow:0 0 20px #0f0;}
 
 /* Donate */
-.donate{margin:40px auto; display:inline-block;}
-.paypal-btn {display:flex; align-items:center; justify-content:center; width:100px; height:100px; margin:auto; padding:0; background:#111; border:2px solid #0f0; border-radius:15px; transition:0.4s; box-shadow:0 0 12px #0f0;}
-.paypal-btn:hover {background:#0f0; box-shadow:0 0 30px #0f0, 0 0 60px #0f0 inset; transform:translateY(-4px);}
-.paypal-icon {width:70px; height:auto; filter:invert(1) brightness(1.2);}
+.donate{margin:40px auto;display:inline-block;}
+.paypal-btn{display:flex;align-items:center;justify-content:center;width:100px;height:100px;margin:auto;background:#111;border:2px solid #0f0;border-radius:15px;transition:0.4s;box-shadow:0 0 12px #0f0;}
+.paypal-btn:hover{background:#0f0;box-shadow:0 0 30px #0f0,0 0 60px #0f0 inset;transform:translateY(-4px);}
+.paypal-icon{width:70px;height:auto;filter:invert(1) brightness(1.2);}
 
 /* Contact Buttons */
-.btns{display:flex; justify-content:center; gap:25px; flex-wrap:wrap; margin-top:25px;}
-.contact-btn{padding:14px 24px; border:1px solid #0f0; border-radius:10px; color:#0f0; text-decoration:none; font-weight:bold; font-size:1.1em; transition:0.4s; background:rgba(0,255,0,0.05);}
-.contact-btn:hover{background:#0f0; color:#000; box-shadow:0 0 20px #0f0;}
-footer p{margin-top:25px; font-size:1em; color:#6f6;}
+.btns{display:flex;justify-content:center;gap:25px;flex-wrap:wrap;margin-top:25px;}
+.contact-btn{padding:14px 24px;border:1px solid #0f0;border-radius:10px;color:#0f0;text-decoration:none;font-weight:bold;font-size:1.1em;transition:0.4s;background:rgba(0,255,0,0.05);}
+.contact-btn:hover{background:#0f0;color:#000;box-shadow:0 0 20px #0f0;}
+footer p{margin-top:25px;font-size:1em;color:#6f6;}
+
+/* Lang Switch */
+.lang-switch{position:fixed;top:20px;right:20px;z-index:10;display:flex;gap:10px;}
+.lang-btn{padding:8px 16px;border:1px solid #0f0;border-radius:6px;background:#000;color:#0f0;cursor:pointer;transition:0.3s;}
+.lang-btn:hover{background:#0f0;color:#000;}
 </style>
 </head>
 <body>
 
-<!-- Loading Screen -->
+<!-- FX -->
+<div id="matrix"></div>
+<div id="particles"></div>
+<div class="scanline"></div>
+
+<!-- Loading -->
 <div id="loading">
-  <p>> Booting system...</p>
+  <p>> Booting main server...</p>
   <p>> Initializing security modules...</p>
-  <p>> Connecting to server...</p>
+  <p>> Optimizing performance...</p>
   <div class="progress"><div class="bar"></div></div>
 </div>
 
-<!-- Background -->
-<div id="matrix"></div>
-<div id="particles"></div>
+<!-- Lang -->
+<div class="lang-switch">
+  <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+  <button class="lang-btn" onclick="setLanguage('gr')">GR</button>
+</div>
 
 <!-- Header -->
 <header id="home">
-  <h1>Scripting Hub 🚀</h1>
-  <p>Cybersecurity • Automation • Ethical Hacking</p>
+  <h1 data-en="Scripting Hub Portal" data-gr="Πύλη Scripting Hub">Scripting Hub Portal</h1>
+  <p data-en="Linux • Windows • Termux • Security & Performance" data-gr="Linux • Windows • Termux • Ασφάλεια & Απόδοση">Linux • Windows • Termux • Security & Performance</p>
 </header>
 
 <!-- About -->
 <section id="about">
-  <h2>About Us</h2>
-  <p class="about">We provide secure, open-source solutions for ethical hacking, scripting, and automation. Our mission is to create a safer digital world with transparency and innovation.</p>
+  <h2 data-en="About Us" data-gr="Σχετικά">About Us</h2>
+  <p data-en="We build secure open-source tools for Linux, Windows and Termux. Everything we do is focused on safety, performance and transparency."
+     data-gr="Δημιουργούμε ασφαλή εργαλεία ανοικτού κώδικα για Linux, Windows και Termux. Ό,τι κάνουμε είναι με γνώμονα την ασφάλεια, την απόδοση και τη διαφάνεια.">
+     We build secure open-source tools for Linux, Windows and Termux. Everything we do is focused on safety, performance and transparency.</p>
 </section>
 
 <!-- Services -->
 <section id="services">
-  <h2>Services</h2>
+  <h2 data-en="Our Services" data-gr="Υπηρεσίες">Our Services</h2>
   <div class="grid">
-    <div class="card">🔐 Security Scripts</div>
-    <div class="card">⚙️ Automation Tools</div>
-    <div class="card">📘 Education & Guides</div>
-    <div class="card">🌐 Open Source Projects</div>
-    <div class="card">🛡️ Penetration Testing</div>
-    <div class="card">☁️ Cloud Security</div>
+    <div class="card" data-en="Security Scripts" data-gr="Σενάρια Ασφαλείας">Security Scripts</div>
+    <div class="card" data-en="Automation Tools" data-gr="Εργαλεία Αυτοματοποίησης">Automation Tools</div>
+    <div class="card" data-en="Education & Guides" data-gr="Εκπαίδευση & Οδηγοί">Education & Guides</div>
+    <div class="card" data-en="Open Source Projects" data-gr="Έργα Ανοιχτού Κώδικα">Open Source Projects</div>
+    <div class="card" data-en="Penetration Testing" data-gr="Δοκιμές Διείσδυσης">Penetration Testing</div>
+    <div class="card" data-en="Cloud Security" data-gr="Ασφάλεια Cloud">Cloud Security</div>
+    <div class="card" data-en="System Optimization" data-gr="Βελτιστοποίηση Συστήματος">System Optimization</div>
+    <div class="card" data-en="Threat Monitoring" data-gr="Παρακολούθηση Απειλών">Threat Monitoring</div>
   </div>
 </section>
 
 <!-- Terminal -->
 <section id="terminal">
-  <h2>Interactive Terminal</h2>
+  <h2 data-en="Server Boot Log" data-gr="Καταγραφή Εκκίνησης Σέρβερ">Server Boot Log</h2>
   <div class="terminal" id="cmdTerminal"></div>
 </section>
 
 <!-- Donate -->
 <section id="donate">
-  <h2>Support Us</h2>
+  <h2 data-en="Support Us" data-gr="Στήριξέ μας">Support Us</h2>
   <div class="donate">
     <a href="https://paypal.me/LenosMantis" target="_blank" class="paypal-btn">
       <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" class="paypal-icon">
@@ -111,34 +124,34 @@ footer p{margin-top:25px; font-size:1em; color:#6f6;}
 
 <!-- Contact -->
 <footer id="contact">
-  <h2>Contact</h2>
+  <h2 data-en="Contact" data-gr="Επικοινωνία">Contact</h2>
   <div class="btns">
-    <a href="mailto:lenosmantis16@gmail.com" class="contact-btn">📧 Gmail</a>
-    <a href="https://discord.gg/gzMEdZxcNR" target="_blank" class="contact-btn">💬 Discord</a>
+    <a href="mailto:lenosmantis16@gmail.com" class="contact-btn">Gmail</a>
+    <a href="https://discord.gg/gzMEdZxcNR" target="_blank" class="contact-btn">Discord</a>
   </div>
-  <p>© 2025 – Scripting Hub</p>
+  <p>© 2025 – Scripting Hub Portal</p>
 </footer>
 
 <script>
 // Matrix
 const matrix=document.getElementById("matrix");
 function createMatrix(){
-  for(let i=0;i<180;i++){
+  for(let i=0;i<200;i++){
     let span=document.createElement("span");
     span.innerText=Math.random()>0.5?"1":"0";
     span.style.left=Math.random()*100+"%";
-    span.style.fontSize=(Math.random()*20+14)+"px";
+    span.style.fontSize=(Math.random()*18+12)+"px";
     span.style.animationDuration=(Math.random()*3+3)+"s";
     matrix.appendChild(span);
   }
 }
 createMatrix();
-setInterval(()=>{matrix.innerHTML=''; createMatrix();},9000);
+setInterval(()=>{matrix.innerHTML='';createMatrix();},9000);
 
 // Particles
 const particles=document.getElementById("particles");
 function createParticles(){
-  for(let i=0;i<60;i++){
+  for(let i=0;i<80;i++){
     let p=document.createElement("div");
     p.style.left=Math.random()*100+"%";
     p.style.top=Math.random()*100+"%";
@@ -147,55 +160,50 @@ function createParticles(){
 }
 createParticles();
 
-// Loading Screen with staggered text
-const loadingTexts = document.querySelectorAll("#loading p");
-loadingTexts.forEach((p,i)=>{
-  setTimeout(()=>{p.style.opacity=1;}, i*1200);
-});
-
-const bar=document.querySelector('.bar');
-let progress=0;
+// Loading
+const loadingTexts=document.querySelectorAll("#loading p");
+loadingTexts.forEach((p,i)=>{setTimeout(()=>{p.style.opacity=1;},i*1200);});
+const bar=document.querySelector('.bar');let progress=0;
 let load=setInterval(()=>{
-  progress+=5; bar.style.width=progress+"%";
+  progress+=5;bar.style.width=progress+"%";
   if(progress>=100){
     clearInterval(load);
     setTimeout(()=>{
       document.getElementById("loading").style.display="none";
-      revealSections();
-      startBootSequence();
+      revealSections();startBootSequence();
     },1200);
   }
 },200);
 
-// Reveal Sections
+// Reveal
 const sections=document.querySelectorAll('header,section,footer');
-function revealSections(){
-  sections.forEach((s,i)=>{
-    setTimeout(()=>{s.classList.add('visible');}, i*500);
-  });
-}
+function revealSections(){sections.forEach((s,i)=>{setTimeout(()=>{s.classList.add('visible');},i*400);});}
 
-// Terminal Boot Sequence
+// Boot log
 const terminal=document.getElementById("cmdTerminal");
-const bootLines=[
-  "> Initializing system...",
-  "> Loading modules...",
-  "> Checking security...",
-  "> Connecting to main server...",
-  "> Access granted ✅",
-  "> Welcome, User."
-];
+const bootLines={
+  en:["> Booting server..."," > Loading modules..."," > Securing connections..."," > Optimizing system..."," > Monitoring threats..."," > Access granted"," > Welcome, Operator."],
+  gr:["> Εκκίνηση σέρβερ..."," > Φόρτωση modules..."," > Ασφάλεια συνδέσεων..."," > Βελτιστοποίηση συστήματος..."," > Παρακολούθηση απειλών..."," > Πρόσβαση επιβεβαιώθηκε"," > Καλώς ήρθες, Χρήστη."]
+};
+let currentLang="en";
 function startBootSequence(){
-  terminal.innerHTML='';
-  let index=0;
+  terminal.innerHTML='';let index=0;
   function showLine(){
-    if(index<bootLines.length){
-      terminal.innerHTML+=bootLines[index]+"<br>";
-      index++;
-      setTimeout(showLine,1800);
+    if(index<bootLines[currentLang].length){
+      terminal.innerHTML+=bootLines[currentLang][index]+"<br>";
+      index++;setTimeout(showLine,1500);
     }
   }
   showLine();
+}
+
+// Language
+function setLanguage(lang){
+  currentLang=lang;
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    el.innerText=el.getAttribute(`data-${lang}`);
+  });
+  startBootSequence();
 }
 </script>
 </body>
